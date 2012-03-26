@@ -1,0 +1,12 @@
+[submodule "vendor/opa"]
+	path = vendor/opa
+	url = git://github.com/Tujubitti/OPA.git
+[submodule "vendor/requirejs"]
+	path = vendor/requirejs
+	url = https://github.com/jrburke/requirejs.git
+[submodule "vendor/backbone"]
+	path = vendor/backbone
+	url = git://github.com/documentcloud/backbone.git
+[submodule "vendor/underscore"]
+	path = vendor/underscore
+	url = git://github.com/documentcloud/underscore.git
