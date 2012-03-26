@@ -10,3 +10,12 @@
 [submodule "vendor/underscore"]
 	path = vendor/underscore
 	url = git://github.com/documentcloud/underscore.git
+[submodule "vendor/jquery-tmpl"]
+	path = vendor/jquery-tmpl
+	url = https://github.com/jquery/jquery-tmpl.git
+[submodule "css/bootstrap"]
+	path = css/bootstrap
+	url = https://github.com/twitter/bootstrap.git
+[submodule "vendor/less"]
+	path = vendor/less
+	url = https://github.com/cloudhead/less.js.git
