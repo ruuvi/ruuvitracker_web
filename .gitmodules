@@ -4,12 +4,6 @@
 [submodule "vendor/requirejs"]
 	path = vendor/requirejs
 	url = https://github.com/jrburke/requirejs.git
-[submodule "vendor/backbone"]
-	path = vendor/backbone
-	url = git://github.com/documentcloud/backbone.git
-[submodule "vendor/underscore"]
-	path = vendor/underscore
-	url = git://github.com/documentcloud/underscore.git
 [submodule "vendor/jquery-tmpl"]
 	path = vendor/jquery-tmpl
 	url = https://github.com/jquery/jquery-tmpl.git
