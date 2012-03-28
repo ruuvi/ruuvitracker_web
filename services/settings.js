@@ -9,7 +9,7 @@ define([
         defaults: {
             //apiUrl: "http://hollow-mountain-6463.herokuapp.com/",
             apiUrl: "http://ruuvi-server.herokuapp.com"
-          , login: null
+          , username: null
           , password: null
           , trackers: [1]
         }
@@ -30,19 +30,26 @@ define([
 
     settings._load = function(callback) {
         var ls = localStorage.getItem('settings');
-        if (ls === null) {
-            this._save();
-        } else {
-            this.data.set(ls);
-        }
         console.log('load localstorage', ls);
+        if (ls !== undefined && ls !== null) {
+            try {
+                this.data.set(JSON.parse(ls));
+                console.log(this.data);
+                return;
+            } catch(e) {
+                /* handle error */
+            }
+        }
+        this._save();
     }
 
     settings._save = function() {
         var inst = this
-          , data = this.data;
+          , data = this.data.toJSON();
 
-        localStorage.setItem('settings', this.data);
+
+        console.log(data);
+        localStorage.setItem('settings', JSON.stringify(data));
     }
 
     settings.registerIntent('settings:trackers:set', function(intent) {
@@ -61,12 +68,19 @@ define([
     });
 
     settings.registerIntent('settings:get', function (intent) {
-        console.log('got it!');
         intent.respond(this.data);
     });
 
-    settings.registerIntent('settins:set', function (intent) {
-        this.data.set(intent.data);
+    settings.registerIntent('settings:set', function (intent) {
+        _.each(intent.data, function(data) {
+            if (data.name == 'trackers') {
+                data.value = data.value.split(',');
+            }
+            this.data.set(data.name, data.value)
+        }, this);
+
+        console.log(this.data);
+        this._save();
         Intent.create('settings:changed', this.data.toJSON()).send();
     });
 

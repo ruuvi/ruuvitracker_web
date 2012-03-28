@@ -16,8 +16,8 @@ define([
                 console.log(settings);
                 var data = {
                     apiUrl: settings.get('apiUrl')
-                  , login: settings.get('login')
-                  , trackers: settings.get('trackers')
+                  , username: settings.get('username')
+                  , trackers: settings.get('trackers').join(',')
                 }
                 this.render(data, function() {
                     this.show(intent);
@@ -38,11 +38,18 @@ define([
         return false;
     }); 
 
+    // General-pangel
+    settingsActivity.delegate('#settings-general form', 'submit', function(el) {
+        var data = $(el).serializeArray();
+        Intent.create('settings:set', data).send();
+        return false;
+    });
 
-    settingsActivity.registerIntent('stop:settingsActivity', function(intent) {
-        console.log('asd');
-        console.log(this.sel('form').serialize());
-        Intent.create('settings:save').send();
+
+    settingsActivity.delegate('#settings-trackers form', 'submit', function(el) {
+        var data = $(el).serializeArray();
+        Intent.create('settings:set', data).send();
+        return false;
     });
 
     return settingsActivity;

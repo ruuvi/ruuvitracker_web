@@ -1,53 +1,59 @@
 <div class="container" style="margin-top: 18px">
     <div class="row">
-    <div class="span4">
-        <ul class="nav nav-tabs nav-stacked">
-            <li class="active">
-                <a href="#settings-general">General</a>
-            </li>
-            <li>
-                <a href="#settings-trackers">Trackers</a>
-            </li>
-        </ul>
-    </div>
-    <div class="span8 settings-panel" id="settings-general">
-        <form class="form-horizontal">
-            <fieldset>
-                <legend>Server</legend>
-                <div class="control-group">
-                    <label class="control-label" for="input01" >URL</label>
-                    <div class="controls">
-                        <input type="text" class="input-xlarge" value="{{apiUrl}}" id="apiurl" />
-                        <p class="help-block">Url of the server</p>
+        <div class="span4">
+            <ul class="nav nav-tabs nav-stacked">
+                <li class="active">
+                    <a href="#settings-general">General</a>
+                </li>
+                <li>
+                    <a href="#settings-trackers">Trackers</a>
+                </li>
+            </ul>
+        </div>
+        <div class="span8 settings-panel" id="settings-general">
+            <form class="form-horizontal" id="settings-general-form">
+                    <legend>Server</legend>
+                    <div class="control-group">
+                        <label class="control-label" for="input01" >URL</label>
+                        <div class="controls">
+                            <input type="text" class="input-xlarge" value="{{apiUrl}}" id="apiUrl" name="apiUrl" />
+                            <p class="help-block">Url of the server</p>
+                        </div>
                     </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="input01" >Username</label>
-                    <div class="controls">
-                        <input type="text" class="input-xlarge" value="{{login}}" id="username" />
+                    <div class="control-group">
+                        <label class="control-label" for="input01" >Username</label>
+                        <div class="controls">
+                            <input type="text" class="input-xlarge" value="{{username}}" id="username" name="username" />
+                        </div>
+                    <div class="control-group">
                     </div>
-                <div class="control-group">
-                </div>
-                    <label class="control-label" for="input01" >Password</label>
-                    <div class="controls">
-                        <input type="text" class="input-xlarge" value="{{login}}" id="password" />
+                        <label class="control-label" for="input01" >Password</label>
+                        <div class="controls">
+                            <input type="password" class="input-xlarge" value="" id="password" name="password" />
+                        </div>
                     </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn">Cancel</button>
+                    </div>
+            </form>
+        </div>
 
-    <div class="span8 settings-panel" id="settings-trackers" style="display: none;">
-        <form class="form-horizontal">
-            <legend>Trackers</legend>
-            <div class="control-group">
-                <div class="controls">
-                <input type="text" class="input-xlarge" value="{{trackers}}" id="trackers" />
-                <p class="help-block">List of your trackers TODO, trackerIds in commaseparated list</p>
-            </div>
-            </div>
-        </form>
+        <div class="span8 settings-panel" id="settings-trackers" style="display: none;">
+            <form class="form-horizontal" id="settings-trackers-form">
+                <legend>Trackers</legend>
+                <div class="control-group">
+                    <div class="controls">
+                        <input type="text" class="input-xlarge" value="{{trackers}}" id="trackers" name="trackers"/>
+                        <p class="help-block">List of your trackers TODO, trackerIds in commaseparated list</p>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn">Cancel</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 </div>
 
