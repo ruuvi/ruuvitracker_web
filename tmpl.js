@@ -1,5 +1,5 @@
-define(['jquery', 'jqueryTmpl'], function ($) {
-    var prefix = '/_tmpls/';
+define([], function () {
+    var prefix = 'tmpls/';
     var ext = '.html';
 
     var tmpls = {};
@@ -23,27 +23,24 @@ define(['jquery', 'jqueryTmpl'], function ($) {
 
                 } else {
                     // Tmpl is ready to be rendered
-                    callback($.tmpl(tmpls[tmplName], data, options));
+                    callback(tmpls[tmplName](data));
                 }
             } else {
                 // Request tmpl
 
                 tmpls[tmplName] = 1; // Flag it to being requested
 
-                $.get(prefix + tmplName + ext, function (content) {
-                    var tmpl = tmpls[tmplName] = $.template(null, content);
+                require(['hbs!'+prefix + tmplName], function(tmpl) {
+                    tmpls[tmplName] = tmpl;
                     if (stash[tmplName]) {
-                        var stashed;
                         while (stashed = stash[tmplName].shift()) {
-                            stashed.callback($.tmpl(
-                                tmpl,
-                                stashed.data,
-                                stashed.options
+                            stashed.callback(tmpl(
+                                stashed.data
                             ));
                         }
                         delete stash[tmplName];
                     }
-                    callback($.tmpl(tmpl, data, options));
+                    callback(tmpl(data));
                 });
             }
         }

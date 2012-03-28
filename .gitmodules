@@ -19,3 +19,9 @@
 [submodule "vendor/backbone"]
 	path = vendor/backbone
 	url = https://github.com/amdjs/backbone.git
+[submodule "vendor/handlebars"]
+	path = vendor/handlebars
+	url = https://github.com/wycats/handlebars.js.git
+[submodule "vendor/requirejs-handlebars"]
+	path = vendor/requirejs-handlebars
+	url = https://github.com/SlexAxton/require-handlebars-plugin.git
