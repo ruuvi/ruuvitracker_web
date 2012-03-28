@@ -13,6 +13,8 @@ var require = {
       , 'underscore': 'vendor/underscore/underscore-min'
       , 'backbone' :  'vendor/backbone/backbone-min'
       , 'domReady':   'vendor/requirejs/domReady'
+      , 'json2':      'vendor/json2'
+      , 'tmpl':       'vendor/tmpl'
 
       , 'application': 'vendor/opa/application'
       , 'activity':    'vendor/opa/activity'
