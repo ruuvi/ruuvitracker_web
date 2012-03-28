@@ -38,12 +38,12 @@ define([
             {
                 zoom: 12
               , center: initialCenter
-              , disableDefaultUI: true
-              , zoomControl: false
-              , draggable: false
-              , disableDoubleClickZoom: true
-              , keyboardShortcuts: false
-              , scrollWheel: false
+              //, disableDefaultUI: true
+              //, zoomControl: false
+              //, draggable: false
+              //, disableDoubleClickZoom: true
+              //, keyboardShortcuts: false
+              //, scrollWheel: false
               , mapTypeId: google.maps.MapTypeId.ROADMAP
             }
         );
