@@ -13,7 +13,7 @@ define([
     mapActivity.uid = 'mapActivity';
     mapActivity.template = 'map/index';
 
-    mapActivity._markers = {};
+    mapActivity._markers = [];
 
     mapActivity.show = function(intent) {
         if (!this.rendered) {
@@ -49,41 +49,62 @@ define([
         );
 
         this.trackers = new Trackers();
-        var id = 1;
-        console.log(this.trackers.url());
-        this.trackers.fetch({
-            url: this.trackers.url() + "/" + id
-          , success: function(trs) {
-                console.log(trs);
-                Intent.create('map:loadEvents').send();
-            }
+
+        this.trackers.on('reset', function(e) {
+            console.log('tracker updated');
+            Intent.create('map:loadEvents').send();
         });
 
-        //google.maps.event.addListener(this.map, 'dragend', _.bind(this.onDragend, this));
+        var me = this;
+        google.maps.event.addListener(this.map, 'idle', function() {
+            me.trackers.fetch();
+            google.maps.event.clearListeners(me.map, 'idle');
+        });
+
         return true;
     };
 
     mapActivity.onRender(mapActivity.initMap);
 
     mapActivity.loadEvents = function() {
-        if (this.trackers === null || this.trackers.models === null || this.trackers.length == 0) {
+        if (!this.trackers || this.trackers.length === 0) {
             return;
         }
-        console.log(this.trackers);
 
-        _.each(this.trackers.models, function(tracker) {
-            console.log(tracker);
+        var me = this;
+        this.trackers.each(function(tracker) {
+            console.log('tracker::loadEvents', tracker);
             tracker.getEvents(function(events) {
-                console.log(events);
+                console.log('tracker::events', events);
+
                 if (tracker.marker === undefined) {
-                    // create new marker
+                    events.each(function(ev) {
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(
+                                ev.get('location').latitude
+                              , ev.get('location').longitude
+                            )
+                          , map: me.map
+
+                        });
+                        me._markers.push(marker);
+
+                        if (me._markers.length == 1) {
+                            var loc = marker.getPosition();
+                            console.log(loc);
+                            me.map.setCenter(loc);
+                        }
+
+                    });
+
+                    console.log(me);
                 } else {
                     // set marker
                 }
             });
         });
 
-    }
+    };
     mapActivity.registerIntent('map:loadEvents', mapActivity.loadEvents);
 
     return mapActivity;

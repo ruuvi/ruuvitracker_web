@@ -5,12 +5,12 @@ define(['backbone', 'models/event'], function(Backbone, Event) {
             return app.getComponent('settings').getUrl() + '/api/v1-dev/events';
       }
       , parse: function(response) {
-            return response.trackers;
+            return response.events;
         }
       , toFormattedJSON: function() {
             return this.map(function(model) {
                 return model.toFormattedJSON();
-            })
+            });
         }
     });
 });

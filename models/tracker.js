@@ -18,7 +18,7 @@ define(['backbone'], function(Backbone) {
             require(['collections/events'], function(Events) {
                 var events = new Events();
                 events.fetch({
-                    url: events.url() + '/' + tracker.id
+                    url: tracker.url() + '/events'
                   , success: function() {
                       callback(events);
                     }
