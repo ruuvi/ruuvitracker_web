@@ -58,7 +58,7 @@ define([
 
         var me = this;
         google.maps.event.addListener(this.map, 'idle', function() {
-            me.trackers.fetch();
+            me.trackers.fetchWithSettings();
             google.maps.event.clearListeners(me.map, 'idle');
         });
 
