@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <title>RuuviTracker</title>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDFyH-XntJen-3nKImMIAUaGslsrfN5zIk&sensor=true"></script>
+    <link rel="stylesheet" href="css/bootstrap/docs/assets/css/bootstrap.css" title="bootstrap" type="text/css" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <script type="text/javascript" charset="utf-8">
+        var require = {
+            callback: function() {
+                require.config({paths: {app: 'app-built'}});
+                require(['app'], function(app) {
+                    app.start();
+                })
+            }
+        }
+    </script>
+    <script src="vendor/requirejs/require.js"></script>
+</head>
+<body>
+    <div id="pages">
+   </div>
+
+</body>
+</html>
