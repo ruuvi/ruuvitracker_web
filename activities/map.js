@@ -3,11 +3,10 @@ define([
     'underscore'
   , 'activity'
   , 'intent'
+  , 'leaflet'
   , 'collections/trackers'
   , 'hbs!tmpls/map/index'
-], function(_, Activity, Intent, Trackers) {
-
-    var initialCenter = new google.maps.LatLng(65.896427, 25.875664);
+], function(_, Activity, Intent, Leaflet, Trackers) {
 
     var mapActivity = Activity.extend();
 
@@ -34,20 +33,40 @@ define([
             throw "Map already initialized!";
         }
 
-        var map = this.map = new google.maps.Map(
-            this.sel('.map-container')[0],
-            {
-                zoom: 12
-              , center: initialCenter
-              //, disableDefaultUI: true
-              //, zoomControl: false
-              //, draggable: false
-              //, disableDoubleClickZoom: true
-              //, keyboardShortcuts: false
-              //, scrollWheel: false
-              , mapTypeId: google.maps.MapTypeId.ROADMAP
+        //this.sel('.map-container').append(
+            //$('<div></div>').attr('id', 'map')
+                ////.css({width: '100%', height: '100%', 'margin-top': '40px'})
+        //);
+
+        //var container = 'map';
+        //
+        this.sel('.map-container').addClass('full');
+        var map = this.map = new Leaflet.Map(
+            this.sel('.map-container')[0]
+          , {
+                center: new Leaflet.LatLng(51.505, -0.09)
+              , zoom: 11
             }
         );
+
+
+        var cloudmade = new L.TileLayer(
+            'http://{s}.tile.cloudmade.com/b1e35f2aca4f49899b04ab9e89ae3b18/997/256/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
+                }
+            );
+
+        var osm = new L.TileLayer(
+            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'OpenStreetMaps'
+              , minzoom: 8
+              , maxZoom: 12
+            }
+        );
+
+
+        //map.addLayer(cloudmade);
+        map.addLayer(osm);
 
         this.trackers = new Trackers();
 
@@ -57,9 +76,9 @@ define([
         });
 
         var me = this;
-        google.maps.event.addListener(this.map, 'idle', function() {
+        this.map.on('load', function() {
             me.trackers.fetchWithSettings();
-            google.maps.event.clearListeners(me.map, 'idle');
+            _.off(me.map, 'load');
         });
 
         return true;

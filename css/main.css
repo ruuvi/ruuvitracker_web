@@ -8,3 +8,11 @@ body, html {
 #mapActivity .map-container {
     height: 100%;
 }
+
+.map-container.full {
+    position:absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
