@@ -11,8 +11,7 @@
     <script type="text/javascript" charset="utf-8">
         var require = {
             callback: function() {
-                require.config({paths: {app: 'app-built'}});
-                require(['app'], function(app) {
+                require(['config', 'app'], function(c, app) {
                     app.start();
                 })
             }

@@ -15,14 +15,14 @@ require.config({
             deps: ['underscore', 'jquery']
           , exports: 'Backbone'
         }
-      , 'bb-relatioal': {
+      , 'bb-relational': {
             deps: ['backbone']
           , exports: 'Backbone.Relational'
         }
   }
 
   , paths: {
-        'jquery':     'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min'
+        'jquery':     'vendor/jquery-1.7.2.min'
       , 'Handlebars': 'vendor/requirejs-handlebars/Handlebars'
       , 'hbs':        'vendor/requirejs-handlebars/hbs'
       , 'underscore': 'vendor/underscore/underscore-min'

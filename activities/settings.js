@@ -2,6 +2,7 @@
 define([
     'underscore'
   , 'activity'
+  , 'hbs!tmpls/settings/index'
 ], function (_, Activity) {
     var settingsActivity = Activity.extend();
 

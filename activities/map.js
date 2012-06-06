@@ -4,6 +4,7 @@ define([
   , 'activity'
   , 'intent'
   , 'collections/trackers'
+  , 'hbs!tmpls/map/index'
 ], function(_, Activity, Intent, Trackers) {
 
     var initialCenter = new google.maps.LatLng(65.896427, 25.875664);

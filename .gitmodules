@@ -7,18 +7,12 @@
 [submodule "css/bootstrap"]
 	path = css/bootstrap
 	url = https://github.com/twitter/bootstrap.git
-[submodule "vendor/less"]
-	path = vendor/less
-	url = https://github.com/cloudhead/less.js.git
 [submodule "vendor/underscore"]
 	path = vendor/underscore
-	url = https://github.com/amdjs/underscore.git
+	url = https://github.com/documentclount/underscore.git
 [submodule "vendor/backbone"]
 	path = vendor/backbone
-	url = https://github.com/amdjs/backbone.git
-[submodule "vendor/handlebars"]
-	path = vendor/handlebars
-	url = https://github.com/wycats/handlebars.js.git
+	url = https://github.com/documentcloud/backbone.git
 [submodule "vendor/requirejs-handlebars"]
 	path = vendor/requirejs-handlebars
 	url = https://github.com/SlexAxton/require-handlebars-plugin.git

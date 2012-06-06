@@ -1,6 +1,7 @@
 define([
     'activity'
   , 'intent'
+  , 'hbs!tmpls/nav/bar'
 ], function(Activity, Intent) {
     var navActivity = Activity.extend();
     navActivity.uid = 'nav';
@@ -22,7 +23,7 @@ define([
     navActivity.setActive = function (selector) {
         this.sel('.active').removeClass('active');
         this.sel('li'+selector).addClass('active');
-    }
+    };
 
     navActivity.onInit(function(intent) {
         if (!this.rendered) {

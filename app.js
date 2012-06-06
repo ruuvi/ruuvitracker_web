@@ -16,6 +16,9 @@ define([
 
   // Services
   , 'services/settings'
+
+  // plugins
+  , 'bb-relational'
 ], function(
     $
   , _
