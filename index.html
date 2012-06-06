@@ -4,13 +4,22 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
     <title>RuuviTracker</title>
-    <script src="config.js"></script>
     <!--<link rel="stylesheet/less" href="css/bootstrap/less/bootstrap.less"/>-->
     <!--<script src="vendor/less/dist/less-1.3.0.min.js"></script>-->
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDFyH-XntJen-3nKImMIAUaGslsrfN5zIk&sensor=true"></script>
     <link rel="stylesheet" href="css/bootstrap/docs/assets/css/bootstrap.css" title="bootstrap" type="text/css" />
     <link rel="stylesheet" href="css/main.css" />
-    <script data-main="main" src="vendor/requirejs/require.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        var require = {
+            callback: function() {
+                require(['config', 'app'], function(c, app) {
+                    app.start();
+                })
+            }
+        }
+    </script>
+    <script src="vendor/requirejs/require.js"></script>
 </head>
 <body>
     <div id="pages">

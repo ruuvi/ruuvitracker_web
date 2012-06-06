@@ -74,7 +74,7 @@ define([
         var me = this;
         this.trackers.each(function(tracker) {
             console.log('tracker::loadEvents', tracker);
-            tracker.getEvents(function(events) {
+            tracker.get('events').on('reset', function(events) {
                 console.log('tracker::events', events);
 
                 if (tracker.marker === undefined) {
@@ -102,6 +102,8 @@ define([
                     // set marker
                 }
             });
+
+            tracker.get('events').fetch();
         });
 
     };

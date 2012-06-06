@@ -1,20 +1,36 @@
 
-var module = {
-}
-var require = {
+require.config({
     baseUrl: '.'
-  //, hbs: {
-      //disableI18n: true
-  //}
+  , hbs: {
+      disableI18n: true
+    }
+  , shim: {
+        'underscore': {
+            exports: '_'
+        }
+      , 'jquery': {
+            exports: '$'
+        }
+      , 'backbone': {
+            deps: ['underscore', 'jquery']
+          , exports: 'Backbone'
+        }
+      , 'bb-relatioal': {
+            deps: ['backbone']
+          , exports: 'Backbone.Relational'
+        }
+  }
+
   , paths: {
         'jquery':     'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min'
-      , 'Handlebars': 'vendor/requirejs-handlebars/handlebars'
+      , 'Handlebars': 'vendor/requirejs-handlebars/Handlebars'
       , 'hbs':        'vendor/requirejs-handlebars/hbs'
       , 'underscore': 'vendor/underscore/underscore-min'
       , 'backbone' :  'vendor/backbone/backbone-min'
       , 'domReady':   'vendor/requirejs/domReady'
       , 'json2':      'vendor/json2'
       , 'tmpl':       'vendor/tmpl'
+      , 'bb-relational': 'vendor/Backbone-relational/backbone-relational'
 
       , 'application': 'vendor/opa/application'
       , 'activity':    'vendor/opa/activity'
@@ -24,6 +40,6 @@ var require = {
       , 'region':      'vendor/opa/region'
       , 'store':       'vendor/opa/store'
     }
-  , priority: ['jquery']
-};
+});
 
+define(function() {return true;});

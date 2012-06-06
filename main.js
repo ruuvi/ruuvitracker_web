@@ -1,8 +1,5 @@
 require([
-    'domReady'
-  , 'app'
-], function (domReady, app) {
-    domReady(function() {
+    'app'
+], function (app) {
         app.start();
-    });
 });
