@@ -3,11 +3,10 @@ define([
     'underscore'
   , 'activity'
   , 'intent'
+  , 'leaflet'
   , 'collections/trackers'
   , 'hbs!tmpls/map/index'
-], function(_, Activity, Intent, Trackers) {
-
-    var initialCenter = new google.maps.LatLng(65.896427, 25.875664);
+], function(_, Activity, Intent, Leaflet, Trackers) {
 
     var mapActivity = Activity.extend();
 
@@ -34,20 +33,41 @@ define([
             throw "Map already initialized!";
         }
 
-        var map = this.map = new google.maps.Map(
-            this.sel('.map-container')[0],
-            {
-                zoom: 12
-              , center: initialCenter
-              //, disableDefaultUI: true
-              //, zoomControl: false
-              //, draggable: false
-              //, disableDoubleClickZoom: true
-              //, keyboardShortcuts: false
-              //, scrollWheel: false
-              , mapTypeId: google.maps.MapTypeId.ROADMAP
+        
+
+        var center = new Leaflet.LatLng(60.168564, 24.941111);
+
+        var cloudmade = new L.TileLayer(
+            'http://{s}.tile.cloudmade.com/b1e35f2aca4f49899b04ab9e89ae3b18/997/256/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
+                }
+            );
+
+        var mm = new L.TileLayer(
+            'http://tiles.kartat.kapsi.fi/peruskartta/{z}/{x}/{y}.jpg', {
+                attribution: 'Maanmittauslaitos'
+              , maxZoom: 18
             }
         );
+
+        var map = this.map = new Leaflet.Map(
+            this.sel('.map-container')[0],
+            {
+                center: center
+              , zoom: 13
+              , layers: [
+                  cloudmade
+                , mm
+              ]
+            }
+        );
+
+        var layersControl = new L.Control.Layers({
+            "CloudMade": cloudmade
+          , "Maanmittauslaitos": mm
+        });
+
+        map.addControl(layersControl);
 
         this.trackers = new Trackers();
 
@@ -57,9 +77,9 @@ define([
         });
 
         var me = this;
-        google.maps.event.addListener(this.map, 'idle', function() {
-            me.trackers.fetch();
-            google.maps.event.clearListeners(me.map, 'idle');
+        this.map.on('load', function() {
+            me.trackers.fetchWithSettings();
+            _.off(me.map, 'load');
         });
 
         return true;
