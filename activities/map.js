@@ -33,22 +33,9 @@ define([
             throw "Map already initialized!";
         }
 
-        //this.sel('.map-container').append(
-            //$('<div></div>').attr('id', 'map')
-                ////.css({width: '100%', height: '100%', 'margin-top': '40px'})
-        //);
+        
 
-        //var container = 'map';
-        //
-        this.sel('.map-container').addClass('full');
-        var map = this.map = new Leaflet.Map(
-            this.sel('.map-container')[0]
-          , {
-                center: new Leaflet.LatLng(51.505, -0.09)
-              , zoom: 11
-            }
-        );
-
+        var center = new Leaflet.LatLng(60.168564, 24.941111);
 
         var cloudmade = new L.TileLayer(
             'http://{s}.tile.cloudmade.com/b1e35f2aca4f49899b04ab9e89ae3b18/997/256/{z}/{x}/{y}.png', {
@@ -56,17 +43,31 @@ define([
                 }
             );
 
-        var osm = new L.TileLayer(
-            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: 'OpenStreetMaps'
-              , minzoom: 8
-              , maxZoom: 12
+        var mm = new L.TileLayer(
+            'http://tiles.kartat.kapsi.fi/peruskartta/{z}/{x}/{y}.jpg', {
+                attribution: 'Maanmittauslaitos'
+              , maxZoom: 18
             }
         );
 
+        var map = this.map = new Leaflet.Map(
+            this.sel('.map-container')[0],
+            {
+                center: center
+              , zoom: 13
+              , layers: [
+                  cloudmade
+                , mm
+              ]
+            }
+        );
 
-        //map.addLayer(cloudmade);
-        map.addLayer(osm);
+        var layersControl = new L.Control.Layers({
+            "CloudMade": cloudmade
+          , "Maanmittauslaitos": mm
+        });
+
+        map.addControl(layersControl);
 
         this.trackers = new Trackers();
 

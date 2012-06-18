@@ -1,18 +1,7 @@
-body, html {
-    height: 100%;
-}
-
-#pages,
-#mapActivity,
-#mapActivity .row-fluid,
-#mapActivity .map-container {
-    height: 100%;
-}
-
-.map-container.full {
-    position:absolute;
+.map-container {
+    position: absolute;
     top: 40px;
+    bottom: 0;
     left: 0;
     right: 0;
-    bottom: 0;
 }
