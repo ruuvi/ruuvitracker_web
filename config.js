@@ -19,6 +19,9 @@ require.config({
             deps: ['backbone']
           , exports: 'Backbone.Relational'
         }
+      , 'leaflet': {
+            exports: 'L'
+        }
   }
 
   , paths: {
@@ -30,6 +33,7 @@ require.config({
       , 'domReady':   'vendor/requirejs/domReady'
       , 'json2':      'vendor/json2'
       , 'tmpl':       'vendor/tmpl'
+      , 'leaflet':    'vendor/leaflet/dist/leaflet'
       , 'bb-relational': 'vendor/Backbone-relational/backbone-relational'
 
       , 'application': 'vendor/opa/application'
