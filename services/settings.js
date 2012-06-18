@@ -41,7 +41,7 @@ define([
             }
         }
         this._save();
-    }
+    };
 
     settings._save = function() {
         var inst = this
@@ -50,13 +50,14 @@ define([
 
         console.log(data);
         localStorage.setItem('settings', JSON.stringify(data));
-    }
+    };
 
     settings.registerIntent('settings:trackers:set', function(intent) {
         if (!_.isEqual(this.data.get('trackers'), intent.data)) {
             this.data.set({trackers: _.clone(intent.data)});
 
-            this.getTrackers(intent);
+            this.data.set('trackers', intent.data);
+            //this.getTrackers(intent);
             this._save();
         }
     });
@@ -76,7 +77,7 @@ define([
             if (data.name == 'trackers') {
                 data.value = data.value.split(',');
             }
-            this.data.set(data.name, data.value)
+            this.data.set(data.name, data.value);
         }, this);
 
         console.log(this.data);

@@ -7,10 +7,17 @@ define(['backbone', 'models/tracker'], function(Backbone, Tracker) {
       , parse: function(response) {
             return response.trackers;
         }
+      , fetchWithSettings: function(opts) {
+            var options = opts || {};
+            Intent.create('settings:get').send(this, function(settings) {
+                options.url = this.url() + '/' + settings.get('trackers').join(',');
+                this.fetch(options);
+            });
+        }
       , toFormattedJSON: function() {
             return this.map(function(model) {
                 return model.toFormattedJSON();
-            })
+            });
         }
     });
 });
