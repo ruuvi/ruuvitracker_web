@@ -48,10 +48,6 @@ var MapService = function(configuration, storageService, trackerService) {
 
     var paths = {};
 
-    // TODO use injecting
-    //var storageService = new StorageService();
-    //var configuration = new Configuration();
-
     var createOsmTiles = function() {
         console.log("createTiles:");
         var url = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
@@ -129,7 +125,7 @@ var MapService = function(configuration, storageService, trackerService) {
         // leaflet api loses information
         map.on("locationfound", function(event) {
             console.log("location found", event);
-            trackerService.sendEvent(event);
+            // trackerService.sendEvent(event);
             updateSelfLocation(event.latlng, event.accuracy);
         });
         map.on("locationerror", function(event) {
