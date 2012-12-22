@@ -1,0 +1,14 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <button id="locate-me" ng-click="locateMe()" class="btn" title="Center map on my current location">Locate</button>
+    <form class="search-form" ng-submit="searchAddress(address)">
+      <input type="search" id="location-search" class="search-query"
+             size="20" maxlength="100" placeholder="Location search" 
+             title="Enter address here and map will show the location." 
+             ng-model="address"/>
+    </form>
+    <div id="map-canvas" class="row-fluid">
+      Map goes here
+    </div>
+  </div>
+  

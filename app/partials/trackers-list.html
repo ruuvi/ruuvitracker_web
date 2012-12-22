@@ -1,0 +1,29 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <p>
+      Select trackers you want to follow
+      or <a href="#/create-tracker">create your own</a>.
+    </p>
+    <table id="tracker-list">
+      <thead>
+        <tr>
+          <th> </th>
+          <th>Tracker</th>
+          <th>Code</th>
+          <th>Activity</th>
+        </tr>
+      </thead>
+      <tbody ng-init="fetchTrackers()">
+        <tr ng-repeat="trackerData in trackers">
+          <td><input type="checkbox" ng-model="trackerData.fetch" ng-change="selectTracker(trackerData)"/></td>
+          <td>{{trackerData.tracker.name}}</td>
+          <td>{{trackerData.tracker.tracker_code}}</td>
+          <td>{{trackerData.tracker.latest_activity}}</td>
+      </tbody>
+    </table>
+    <p>
+      
+    </p>
+    <hr />
+  </div>
+</div>
