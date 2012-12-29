@@ -67,8 +67,7 @@ MapCtrl.$inject = ['$scope', '$location', 'mapService', 'geoCodingService', 'sou
 
 function TrackersListCtrl($scope, $resource, $location, trackerStorage) {
     updateNavi($location, 'page-link-trackers');
-    // need to escape : in port number due angularjs silliness
-    var Tracker = $resource('http://198.61.201.6\\:8000/api/v1-dev/trackers');
+    var Tracker = $resource('http://dev-server.ruuvitracker.fi/api/v1-dev/trackers');
 
     trackerStorage.restoreSelectedTrackers();
 
@@ -76,6 +75,12 @@ function TrackersListCtrl($scope, $resource, $location, trackerStorage) {
         trackerStorage.fetchTrackerEvents(trackerData.tracker.id, trackerData.fetch);
     };
 
+    $scope.displayTimeAgo = function(date) {
+        if(!date) {
+            return null;
+        }
+        return date.from(new Date());
+    };
     $scope.fetchTrackers = function() {
         console.log("fetchTrackers");
         // update view after trackers have been fetched

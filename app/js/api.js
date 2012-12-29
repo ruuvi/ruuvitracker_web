@@ -42,7 +42,7 @@ var TrackerService = function(configuration) {
         var resultsSince = "";
         if(sinceTimestamp) {
             // TODO should use decimals for millisecs and round up
-            resultsSince = "storeTimeStart=" + Math.ceil(sinceTimestamp.getTime() / 1000);
+            resultsSince = "storeTimeStart=" + sinceTimestamp.unix();
         }
         var url = configuration.ruuvitracker.url + "trackers/" + trackerId + "/events?" + resultsSince;
         ajaxGet(url, {}, success, error);
@@ -134,20 +134,29 @@ var TrackerStorage = function(storageService, trackerService, mapService) {
     var trackers = {};
     //trackers.lastTrackerQuery = undefined;
 
+
     // TODO used to convert several object types
     var convertData = function(obj) {
+        function parseMoment(value) {
+            if(!value) {
+                return null;
+            }
+            return moment(value, "YYYY-MM-DDTHH:mm:ss.SSSZ"); 
+        };
+
         if(obj.created_on) {
-            obj.created_on = new Date(obj.created_on);
+            obj.created_on = parseMoment(obj.created_on);
         }
         if(obj.event_time) {
-            obj.event_time = new Date(obj.event_time);
+            obj.event_time = parseMoment(obj.event_time);
         }
         if(obj.store_time) {
-            obj.store_time = new Date(obj.store_time);
+            obj.store_time = parseMoment(obj.store_time);
         }
         if(obj.latest_activity) {
-            obj.latest_activity = new Date(obj.latest_activity);
+            obj.latest_activity = parseMoment(obj.latest_activity);
         }
+
         var location = obj.location;
         if(location && location.latitude && location.longitude) {
             obj.latlng = new L.LatLng(location.latitude, location.longitude);
