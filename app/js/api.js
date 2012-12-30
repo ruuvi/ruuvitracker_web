@@ -41,8 +41,8 @@ var TrackerService = function(configuration) {
     this.getEvents = function(trackerId, sinceTimestamp, success, error) {
         var resultsSince = "";
         if(sinceTimestamp) {
-            // TODO should use decimals for millisecs and round up
-            resultsSince = "storeTimeStart=" + sinceTimestamp.unix();
+            // add 1msec so that this wont refetch the latest event
+            resultsSince = "storeTimeStart=" + (sinceTimestamp.valueOf() + 1) / 1000.0;
         }
         var url = configuration.ruuvitracker.url + "trackers/" + trackerId + "/events?" + resultsSince;
         ajaxGet(url, {}, success, error);
