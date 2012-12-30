@@ -65,9 +65,9 @@ function MapCtrl($scope, $location, mapService, geoCodingService, soundService, 
 MapCtrl.$inject = ['$scope', '$location', 'mapService', 'geoCodingService', 'soundService', 'trackerService', 
                    'trackerStorage'];
 
-function TrackersListCtrl($scope, $resource, $location, trackerStorage) {
+function TrackersListCtrl($scope, $resource, $location, trackerStorage, configuration) {
     updateNavi($location, 'page-link-trackers');
-    var Tracker = $resource('http://dev-server.ruuvitracker.fi/api/v1-dev/trackers');
+    var Tracker = $resource(configuration.ruuvitracker.url + 'trackers');
 
     trackerStorage.restoreSelectedTrackers();
 
@@ -91,7 +91,8 @@ function TrackersListCtrl($scope, $resource, $location, trackerStorage) {
     };
 
 }
-TrackersListCtrl.$inject = ['$scope', '$resource', '$location', 'trackerStorage'];
+TrackersListCtrl.$inject = ['$scope', '$resource', '$location', 'trackerStorage', 
+                            'configuration'];
 
 function CreateTrackerCtrl($scope, $location) {
     updateNavi($location, 'page-link-trackers');
