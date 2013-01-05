@@ -44,7 +44,7 @@ var TrackerService = function(configuration) {
             // add 1msec so that this wont refetch the latest event
             resultsSince = "storeTimeStart=" + (sinceTimestamp.valueOf() + 1) / 1000.0;
         }
-        var url = configuration.ruuvitracker.url + "trackers/" + trackerId + "/events?" + resultsSince;
+        var url = configuration.ruuvitracker.url + "trackers/" + trackerId + "/events?" + resultsSince + "&maxResults=500";
         ajaxGet(url, {}, success, error);
     };
 
@@ -303,9 +303,8 @@ var TrackerStorage = function(storageService, trackerService, mapService) {
                 console.log("Data was received for tracker " + trackerId);
                 trackers[trackerId].poller = setTimeout(function() {
                     updateTracker(trackerId, callback);
-                }, 400);
+                }, 100);
             } else {
-                console.log("No data was received for tracker " + trackerId);
                 trackers[trackerId].poller = setTimeout(function() {
                     updateTracker(trackerId, callback);
                 }, 10000);

@@ -73,11 +73,10 @@ var MapService = function(configuration, storageService, trackerService) {
     }
 
     var storeMapState = function(event) {
-        console.log("storeMapState: ", event);
         var zoom = mapView.getZoom();
         var location = mapView.getCenter();
         var data = storageService.fetch("map-location", {});
-        if(event.layer) {
+        if(event.layer && event.layer.options.title) {
             data.tiles = event.layer.options.title
         }
         data.zoom = zoom; 
@@ -264,6 +263,12 @@ var MapService = function(configuration, storageService, trackerService) {
             // not every event has a location
             return;
         }
+        if(event.location.accuracy) {
+            if(event.location.accuracy > 100) {
+                // skip low accuracy points
+                return;
+            }
+        }
         var trackerId = event.tracker_id;
         var sessionId = event.event_session_id;
         if(!paths[trackerId]) {
@@ -275,8 +280,22 @@ var MapService = function(configuration, storageService, trackerService) {
         }
         var session = tracker[sessionId];
         if(!session.path) {
-            console.log("Create new path");
-            session.path = new L.Polyline([event.latlng]);
+            // http://gamedev.stackexchange.com/questions/46463/is-there-an-optimum-set-of-colors-for-10-players
+            var colors = ['#ff8080',
+                          '#78bef0',
+                          '#ded16f',
+                          '#cc66c9',
+                          '#5dbaac',
+                          '#f2a279',
+                          '#7182e3',
+                          '#92d169',
+                          '#bf607c',
+                          '#7cddf7',
+                          ];
+            var color_index = (sessionId || 0) % colors.length;
+            session.path = new L.Polyline([event.latlng], 
+                                          {color: colors[color_index],
+                                           opacity: 0.75});
         } else {
             session.path.addLatLng(event.latlng);
         }
