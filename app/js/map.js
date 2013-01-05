@@ -60,6 +60,8 @@ var MapService = function(configuration, storageService, trackerService) {
             console.log(mapTiles.title, mapTiles.type);
             if(mapTiles.type == 'google') {
                 tileLayer = new L.Google(mapTiles.map_type, opts);
+            } else if(mapTiles.type == 'bing') {
+                tileLayer = new L.BingLayer(mapTiles.api_key, opts);
             } else {
                 var url = mapTiles.url;
                 tileLayer = new L.TileLayer(url, opts);
@@ -204,8 +206,8 @@ var MapService = function(configuration, storageService, trackerService) {
     };
 
     /* Center map on give LatLngBounds object */
-    this.centerBounds = function(bounds) {
-        console.log("centerBounds:" + bounds);
+    this.centerBounds = function(bounds, maxZoom) {
+        console.log("centerBounds:", bounds.toBBoxString());
         mapView.fitBounds(bounds);
     }
 
