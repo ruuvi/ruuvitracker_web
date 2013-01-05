@@ -93,6 +93,7 @@ var MapService = function(configuration, storageService, trackerService) {
             return marker;
         }
         if(!marker) {
+            console.log("options", options);
             var newMarker = new L.Marker(newLocation, options);
             newMarker.addTo(mapView);
             return newMarker;
@@ -125,7 +126,14 @@ var MapService = function(configuration, storageService, trackerService) {
         // TODO draw accuracy circle?
         console.log("updateSelfLocation:", newLocation);
         selfLocation = newLocation;
-        selfMarker = updateMarker(selfMarker, newLocation);
+        selfMarker = updateMarker(selfMarker, newLocation, 
+                                  {icon: new L.Icon(
+                                      {iconUrl: "img/pin-cross.png",
+                                       iconSize: [20, 25],
+                                       iconAnchor: [10, 25],
+                                       popupAnchor: [-3, -76],
+                                       className: "self-location"})
+                                  });
     };
 
     var startLocating_internal = function(map) {
