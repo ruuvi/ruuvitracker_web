@@ -48,13 +48,20 @@ var MapService = function(configuration, storageService, trackerService) {
 
     var paths = {};
 
-    var createOsmTiles = function() {
-        console.log("createTiles:");
-        var url = configuration.mapTileServer.url;
-        var opts = {attribution: configuration.mapTileServer.attribution,
-                    maxZoom: 18};
-        return new L.TileLayer(url, opts);
-    };
+    var createMapTiles = function() {
+        var tiles = [];
+        for(var i = 0; i < configuration.maps.length; i ++) {
+            var mapTiles = configuration.maps[i];
+            var url = mapTiles.url;
+            var opts = {attribution: mapTiles.attribution,
+                        maxZoom: mapTiles.maxZoom,
+                       minZoom: mapTiles.minZoom || 0};
+            var tileLayer = new L.TileLayer(url, opts);
+            tileLayer.title = mapTiles.title;
+            tiles.push(tileLayer);
+        }
+        return tiles;
+    }
 
     var storeMapState = function() {
         console.log("storeMapState:");
@@ -118,9 +125,20 @@ var MapService = function(configuration, storageService, trackerService) {
 
     var create = function(canvasId, startLocation) {
         console.log("create:" + canvasId);
-        var tiles = createOsmTiles();
-        var map = new L.Map(canvasId, {zoom: configuration.defaultZoom});
-        map.addLayer(tiles);
+        var tiles = createMapTiles();
+        var map = new L.Map(canvasId, 
+                            {zoom: configuration.defaultZoom, 
+                             });
+        map.addLayer(tiles[0]);
+
+        var baseMaps = {};
+        for(var i = 0; i < tiles.length; i ++) {
+           var tile = tiles[i];
+            baseMaps[tile.title] = tile;
+        }
+
+        L.control.layers(baseMaps).addTo(map);
+
         // TODO use geolocation api instead
         // leaflet api loses information
         map.on("locationfound", function(event) {
