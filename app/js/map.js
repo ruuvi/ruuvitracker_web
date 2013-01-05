@@ -51,7 +51,7 @@ var MapService = function(configuration, storageService, trackerService) {
     var createOsmTiles = function() {
         console.log("createTiles:");
         var url = configuration.mapTileServer.url;
-        var opts = {attribution: configuration.mapTileServer.url,
+        var opts = {attribution: configuration.mapTileServer.attribution,
                     maxZoom: 18};
         return new L.TileLayer(url, opts);
     };
