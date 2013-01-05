@@ -242,7 +242,11 @@ var TrackerStorage = function(storageService, trackerService, mapService) {
             callback(trackerId, dataReceived);
         }
         ensureStructure(trackerId);
-        trackerService.getEvents(trackerId, trackers[trackerId].latestStoreTime, success);            
+
+        // essential constant
+        var defaultStart = new Date(new Date().getTime()-(32*60*60+10*Math.PI/4*60)*1000);
+        var startTime = (trackers[trackerId].latestStoreTime || defaultStart);
+        trackerService.getEvents(trackerId, startTime, success);            
     };
 
     /** Fetch trackers, store them to memory and return reference to memory */

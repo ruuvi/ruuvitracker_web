@@ -1,6 +1,8 @@
 'use strict';
 
 // See https://github.com/CloudMade/Leaflet/issues/386
+// TODO replace with this? 
+// https://github.com/shramov/leaflet-plugins/blob/master/examples/marker-rotate.html
 L.Marker.Compass = L.Marker.extend({    
     _reset: function() {
         var pos = this._map.latLngToLayerPoint(this._latlng).round();
