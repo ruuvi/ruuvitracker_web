@@ -22,13 +22,32 @@ function MapCtrl($scope, $location, mapService, geoCodingService, soundService, 
 
     mapService.open("map-canvas");
 
+    function resizeHandler() {
+        var map = $("#map-canvas");
+        if (!map.length) {
+            return;
+        }
+
+        var windowHeight = $(window).height();
+        var mapTop = Math.ceil(map.position().top);
+        var footerHeight = $("footer").height();
+        var newMapSize = windowHeight - mapTop - footerHeight - 1;
+        map.height(newMapSize);
+    };
+
+    $(window).resize(function() {
+        resizeHandler();
+    });
+
+    resizeHandler();
+
     trackerStorage.restoreSelectedTrackers();
 
     $scope.locateMe = function() {
         console.log("locateMe:");
         mapService.centerOnSelf();
     };
-
+    
     $scope.searchAddress = function(address) {
         console.log("searchAddress:", address);
         if(!address) {

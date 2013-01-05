@@ -145,6 +145,7 @@ var MapService = function(configuration, storageService, trackerService) {
         var oldContainer = mapView.getContainer();
         var newContainer = $('#' + canvasId);
         newContainer.replaceWith(oldContainer);
+        mapView.invalidateSize(false);
     };
 
     /* Open existing map or create new */
