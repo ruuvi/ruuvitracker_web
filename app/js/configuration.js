@@ -11,27 +11,58 @@ var Configuration = function() {
 
     this.maps = [
         {title: "MML Perus",
+         type: "leaflet",
          url: "http://tiles.kartat.kapsi.fi/peruskartta/{z}/{x}/{y}.jpg",
          attribution: "Maanmittauslaitos",
          maxZoom: 19
         },
         {title: "MML Orto",
+         type: "leaflet",
          url: "http://tiles.kartat.kapsi.fi/ortokuva/{z}/{x}/{y}.jpg",
          attribution: "Maanmittauslaitos",
          maxZoom: 19,
          minZoom: 13,
         },
         {title: "MML Tausta",
+         type: "leaflet",
          url: "http://tiles.kartat.kapsi.fi/taustakartta/{z}/{x}/{y}.jpg",
          attribution: "Maanmittauslaitos",
          maxZoom: 19
-        }
+        },
 
-        /*,
-        {title: "OSM",
+        {title: "OpenStreetMap",
+         type: "leaflet",
          url: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
          attribution: "Map data &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors, <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>",
          maxZoom: 18
-        }*/
+        },
+
+        {title: "Google Roadmap",
+         type: "google",
+         // Possible types: SATELLITE, ROADMAP, HYBRID, TERRAIN
+         map_type: 'ROADMAP',
+         attribution: "Google Maps",
+         maxZoom: 20
+        },
+        {title: "Google Satellite",
+         type: "google",
+         // Possible types: SATELLITE, ROADMAP, HYBRID, TERRAIN
+         map_type: 'SATELLITE',
+         attribution: "Google Maps",
+         maxZoom: 20
+        },
+        {title: "Google Hybrid",
+         type: "google",
+         map_type: 'HYBRID',
+         attribution: "Google Maps",
+         maxZoom: 20
+        },
+        {title: "Google Terrain",
+         type: "google",
+         map_type: 'TERRAIN',
+         attribution: "Google Maps",
+         maxZoom: 20
+        },
+
     ];
 };

@@ -52,11 +52,18 @@ var MapService = function(configuration, storageService, trackerService) {
         var tiles = [];
         for(var i = 0; i < configuration.maps.length; i ++) {
             var mapTiles = configuration.maps[i];
-            var url = mapTiles.url;
+
             var opts = {attribution: mapTiles.attribution,
                         maxZoom: mapTiles.maxZoom,
                        minZoom: mapTiles.minZoom || 0};
-            var tileLayer = new L.TileLayer(url, opts);
+            var tileLayer = undefined;
+            console.log(mapTiles.title, mapTiles.type);
+            if(mapTiles.type == 'google') {
+                tileLayer = new L.Google(mapTiles.map_type, opts);
+            } else {
+                var url = mapTiles.url;
+                tileLayer = new L.TileLayer(url, opts);
+            }
             tileLayer.title = mapTiles.title;
             tiles.push(tileLayer);
         }
