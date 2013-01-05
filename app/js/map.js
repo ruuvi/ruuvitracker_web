@@ -147,7 +147,6 @@ var MapService = function(configuration, storageService, trackerService) {
         }
 
         L.control.layers(baseMaps).addTo(map);
-
         // TODO use geolocation api instead
         // leaflet api loses information
         map.on("locationfound", function(event) {
@@ -162,7 +161,7 @@ var MapService = function(configuration, storageService, trackerService) {
         loadInitialLocation(map, startLocation, hour);
         map.on("zoomend", storeMapState);
         map.on("moveend", storeMapState);
-
+        L.control.scale().addTo(map);
         startLocating_internal(map);
         return map;
     };
