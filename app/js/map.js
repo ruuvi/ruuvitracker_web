@@ -53,9 +53,10 @@ var MapService = function(configuration, storageService, trackerService) {
         for(var i = 0; i < configuration.maps.length; i ++) {
             var mapTiles = configuration.maps[i];
 
-            var opts = {attribution: mapTiles.attribution,
+            var opts = {title: mapTiles.title,
+                        attribution: mapTiles.attribution,
                         maxZoom: mapTiles.maxZoom,
-                       minZoom: mapTiles.minZoom || 0};
+                        minZoom: mapTiles.minZoom || 0};
             var tileLayer = undefined;
             console.log(mapTiles.title, mapTiles.type);
             if(mapTiles.type == 'google') {
@@ -66,20 +67,23 @@ var MapService = function(configuration, storageService, trackerService) {
                 var url = mapTiles.url;
                 tileLayer = new L.TileLayer(url, opts);
             }
-            tileLayer.title = mapTiles.title;
             tiles.push(tileLayer);
         }
         return tiles;
     }
 
-    var storeMapState = function() {
-        console.log("storeMapState:");
+    var storeMapState = function(event) {
+        console.log("storeMapState: ", event);
         var zoom = mapView.getZoom();
         var location = mapView.getCenter();
-        var data = {zoom: zoom, 
-                    lat: location.lat,
-                    lng: location.lng,
-                    timestamp: new Date().getTime()};
+        var data = storageService.fetch("map-location", {});
+        if(event.layer) {
+            data.tiles = event.layer.options.title
+        }
+        data.zoom = zoom; 
+        data.lat = location.lat;
+        data.lng = location.lng;
+        data.timestamp = new Date().getTime();
         storageService.store("map-location", data);
     };
 
@@ -138,12 +142,26 @@ var MapService = function(configuration, storageService, trackerService) {
         var map = new L.Map(canvasId, 
                             {zoom: configuration.defaultZoom, 
                              });
-        map.addLayer(tiles[0]);
+
+        // restore selected map layer
+        var mapState = storageService.fetch("map-location", {});
+        if(mapState.tiles) {
+            var defaultLayer = _.find(tiles, function(layer) {
+                return layer.options.title == mapState.tiles;
+            });
+            if(defaultLayer) {
+                map.addLayer(defaultLayer);
+            } else {
+                map.addLayer(tiles[0]);
+            }
+        } else {
+            map.addLayer(tiles[0]);
+        }
 
         var baseMaps = {};
         for(var i = 0; i < tiles.length; i ++) {
            var tile = tiles[i];
-            baseMaps[tile.title] = tile;
+            baseMaps[tile.options.title] = tile;
         }
 
         L.control.layers(baseMaps).addTo(map);
@@ -159,8 +177,11 @@ var MapService = function(configuration, storageService, trackerService) {
         });
         var hour = 60 * 60;
         loadInitialLocation(map, startLocation, hour);
+        // listen for move and zoom events so that location can be restored
         map.on("zoomend", storeMapState);
         map.on("moveend", storeMapState);
+        map.on("layeradd", storeMapState);
+
         L.control.scale().addTo(map);
         startLocating_internal(map);
         return map;
