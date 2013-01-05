@@ -50,8 +50,8 @@ var MapService = function(configuration, storageService, trackerService) {
 
     var createOsmTiles = function() {
         console.log("createTiles:");
-        var url = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-        var opts = {attribution: "Map data &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors, <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>",
+        var url = configuration.mapTileServer.url;
+        var opts = {attribution: configuration.mapTileServer.url,
                     maxZoom: 18};
         return new L.TileLayer(url, opts);
     };
