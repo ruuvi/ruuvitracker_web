@@ -23,16 +23,17 @@ function MapCtrl($scope, $location, mapService, geoCodingService, soundService, 
     mapService.open("map-canvas");
 
     function resizeHandler() {
-        var map = $("#map-canvas");
-        if (!map.length) {
+        var mapContainer = $("#map-canvas");
+        if (!mapContainer.length) {
             return;
         }
 
         var windowHeight = $(window).height();
-        var mapTop = Math.ceil(map.position().top);
+        var mapTop = Math.ceil(mapContainer.position().top);
         var footerHeight = $("footer").height();
         var newMapSize = windowHeight - mapTop - footerHeight - 1;
-        map.height(newMapSize);
+        mapContainer.height(newMapSize);
+        mapService.redraw();
     };
 
     $(window).resize(function() {
@@ -40,6 +41,8 @@ function MapCtrl($scope, $location, mapService, geoCodingService, soundService, 
     });
 
     resizeHandler();
+
+
 
     trackerStorage.restoreSelectedTrackers();
 

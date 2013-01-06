@@ -259,6 +259,10 @@ var MapService = function(configuration, storageService, trackerService) {
         mapView.stopLocate();
     };
 
+    this.redraw = function() {
+        mapView.invalidateSize(false);
+    }
+
     var pathIcon = function(heading) {
         if(heading) {
             return new L.Icon({iconUrl: "img/up-arrow.png",
