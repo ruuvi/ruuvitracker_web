@@ -230,7 +230,6 @@ var MapService = function(configuration, storageService, trackerService) {
 
     /* Center map on given location */
     this.center = function(location, zoom) {
-        console.log("center:" + location + "," + zoom);
         mapView.setView(location, zoom || configuration.defaultZoom);
     };
 
