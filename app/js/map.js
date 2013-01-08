@@ -64,6 +64,7 @@ var MapService = function(configuration, storageService, trackerService) {
             if(mapTiles.type == 'google') {
                 tileLayer = new L.Google(mapTiles.map_type, opts);
             } else if(mapTiles.type == 'bing') {
+                opts.type = mapTiles.map_type;
                 tileLayer = new L.BingLayer(mapTiles.api_key, opts);
             } else {
                 var url = mapTiles.url;
