@@ -331,6 +331,7 @@ var MapService = function(configuration, storageService, trackerService) {
         if(mapView) {
             session.path.addTo(mapView);
             tracker.marker.addTo(mapView);
+            this.center(event.latlng, mapView.getZoom());
         }
     }
 };
