@@ -6,3 +6,30 @@
 .search-form {
     display: inline;
 }
+
+
+
+
+/** leaflet fixes */
+
+/* top left control */
+.leaflet-left .leaflet-control {
+    margin-left: 0px;
+}
+.leaflet-top .leaflet-control {
+    margin-top: 0px;
+}
+
+/* top right control */
+.leaflet-right .leaflet-control {
+    margin-right: 0px;
+}
+
+.leaflet-bottom .leaflet-control-scale {
+    margin-bottom: 0px;
+}
+/* make attribution go under layer selection */
+.leaflet-bottom {
+    z-index: 900;
+}
+
