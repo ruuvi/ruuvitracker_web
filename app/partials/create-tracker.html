@@ -1,6 +1,9 @@
 <div class="container-fluid">
   <h1>Creating a new Tracker</h1>
-  <form id="create-tracker-form">
+  <form id="create-tracker-form"
+        ng-submit="createTracker(tracker_code, shared_secret,
+                   tracker_name, demo_password)"
+        ng-hide="feedback.success">
     <fieldset>
       <ol>
         <li>
@@ -9,34 +12,53 @@
                 type="text" title="Password given by RuuviTracker dev-team. 
 Contact #ruuvitracker IRC channel."
           placeholder="Password for demo access." required="required"
-                 autocomplete="off" />
+                 autocomplete="off" ng-model="demo_password"/>
         </li>
         <li>
           <label for="tracker-code">Tracker code:</label>
           <input id="tracker-code" size="30" maxlength="30"
                  placeholder="'username', lower case ASCII only" type="text"
                  pattern="[a-z01-9]{4,30}" required="required"
-                 autocomplete="off" />
+                 autocomplete="off" ng-model="tracker_code"/>
         </li>
         <li>
           <label for="shared-secret">Shared secret:</label>
           <input id="shared-secret" size="30" maxlength="30"
                  type="text" placeholder="'password', ASCII only"
                  pattern="[a-zA-Z01-9]{4,30}" required="required"
-                 autocomplete="off" />
+                 autocomplete="off" ng-model="shared_secret"/>
         </li>
         <li>
           <label for="tracker-name" title="For display purposes">Tracker name:</label>
           <input id="tracker-name" size="30" maxlength="256"
                  type="text" placeholder="Free form text" autocomplete="off"
-                 required="required" />
+                 required="required" ng-model="tracker_name"/>
         </li>
       </ol>
     </fieldset>
-    <em>Open browser's JavaScript console, the only output goes there.</em>
+
+    <div class="alert alert-error" ng-show="feedback.error">
+      <span>{{feedback.message}}</span>
+    </div>
     <fieldset>
-      <input id="create-tracker-button" class="btn" type="submit" value="Create!"/>
+      <input id="create-tracker-button" class="btn" type="submit"
+             value="Create!" />
     </fieldset>
 
   </form>
+  <div ng-show="feedback.success">
+    <div class="alert alert-success">
+      <span>{{feedback.message}}</span>
+    </div>
+    <div>
+      <span>Tracker code:<span> {{tracker_code}}
+    </div>
+    <div>
+      <span>Tracker name:<span> {{tracker_name}}
+    </div>
+    <div>
+      <span>Shared secret:<span> {{shared_secret}}
+    </div>
+  </div>
+
 </div>

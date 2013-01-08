@@ -116,10 +116,45 @@ function TrackersListCtrl($scope, $resource, $location, trackerStorage, configur
 TrackersListCtrl.$inject = ['$scope', '$resource', '$location', 'trackerStorage', 
                             'configuration'];
 
-function CreateTrackerCtrl($scope, $location) {
+function CreateTrackerCtrl($scope, $location, $resource, configuration) {
     updateNavi($location, 'page-link-trackers');
+    // AngularJS silliness, must quote : in port number
+    var url = configuration.ruuvitracker.url.replace(/:([01-9]+)/, '\\:$1');
+    // TODO move to dependency injection/trackerService
+    var Tracker = $resource(url + 'trackers', {},
+                            {createTracker: {method: 'POST'}});
+
+    $scope.createTracker = function(trackerCode,
+        sharedSecret, trackerName, demoPassword) {
+        var expected = ["#" + "ruu" + "vi", "enK".replace(/n/,"nN").toLowerCase().replace(/nn/,"n").replace(/(k)/,"$1$1i")].join("p");
+        if(demoPassword != expected) {
+            $scope.feedback = {error: true, message: "Wrong demo password"};
+            return;
+        }
+        console.log("creating ", trackerCode);
+        function success(e) {
+            console.log("Successfully created new tracker", e.tracker);
+            $scope.feedback = {success: true, 
+                               message: "Successfully created new tracker",
+                               tracker: e.tracker};
+        };
+        function error(e) {
+            var data = e.data;
+            var msg;
+            if(data.error && data.error.message) {
+                console.log("Failed to create tracker", data.error.message);
+                msg=data.error.message;
+            } else {
+                console.log("Failed to create tracker:", data.status);
+                msg="Failed to create tracker";
+            }
+            $scope.feedback = {error: true, message: msg};
+        };
+        var result = Tracker.createTracker({tracker: {name: trackerName, code: trackerCode, shared_secret: sharedSecret}}, success, error);
+        
+    }
 }
-CreateTrackerCtrl.$inject = ['$scope', '$location'];
+CreateTrackerCtrl.$inject = ['$scope', '$location', '$resource', 'configuration'];
 
 function ErrorCtrl($scope) {}
 ErrorCtrl.$inject = [];
