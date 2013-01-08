@@ -124,6 +124,17 @@ function CreateTrackerCtrl($scope, $location, $resource, configuration) {
     var Tracker = $resource(url + 'trackers', {},
                             {createTracker: {method: 'POST'}});
 
+    $scope.generateSharedSecret = function() {
+        var secret = '';
+        var values = "wertyupadfghjkzxcvbm";
+        values += "WERTYUPADFHJKLZXCVBNM";
+        values += "234789";
+        for(var i = 0; i < 20; i ++) {
+            var index = Math.floor(Math.random()*values.length);
+            secret += values[index];
+        }
+        $scope.shared_secret = secret;
+    };
     $scope.createTracker = function(trackerCode,
         sharedSecret, trackerName, demoPassword) {
         var expected = ["#" + "ruu" + "vi", "enK".replace(/n/,"nN").toLowerCase().replace(/nn/,"n").replace(/(k)/,"$1$1i")].join("p");

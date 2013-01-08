@@ -27,6 +27,8 @@ Contact #ruuvitracker IRC channel."
                  type="text" placeholder="'password', ASCII only"
                  pattern="[a-zA-Z01-9]{4,30}" required="required"
                  autocomplete="off" ng-model="shared_secret"/>
+          <a ng-click="generateSharedSecret()" 
+             title="Generate shared secret, you can also write your own.">Generate</a>
         </li>
         <li>
           <label for="tracker-name" title="For display purposes">Tracker name:</label>
