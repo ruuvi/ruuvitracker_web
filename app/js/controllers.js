@@ -7,17 +7,17 @@ function updateNavi($location, pageClass) {
 }
 
 /* Controllers */
-function DefaultCtrl($scope, $location) {
+function DefaultCtrl(analytics, $scope, $location) {
     updateNavi($location, 'page-link-help');
 }
-DefaultCtrl.$inject = ['$scope', '$location'];
+DefaultCtrl.$inject = ['analytics', '$scope', '$location'];
 
-function FrontCtrl($scope, $location) {
+function FrontCtrl(analytics, $scope, $location) {
     updateNavi($location, 'page-link-index');
 }
-FrontCtrl.$inject = ['$scope', '$location'];
+FrontCtrl.$inject = ['analytics', '$scope', '$location'];
 
-function MapCtrl($scope, $location, mapService, geoCodingService, soundService, trackerService, trackerStorage) {
+function MapCtrl(analytics, $scope, $location, mapService, geoCodingService, soundService, trackerService, trackerStorage) {
     updateNavi($location, 'page-link-map');
 
     mapService.open("map-canvas");
@@ -84,10 +84,10 @@ function MapCtrl($scope, $location, mapService, geoCodingService, soundService, 
         geoCodingService.searchLocation(address, showClosest);
     };
 }
-MapCtrl.$inject = ['$scope', '$location', 'mapService', 'geoCodingService', 'soundService', 'trackerService', 
+MapCtrl.$inject = ['analytics', '$scope', '$location', 'mapService', 'geoCodingService', 'soundService', 'trackerService', 
                    'trackerStorage'];
 
-function TrackersListCtrl($scope, $resource, $location, trackerStorage, configuration) {
+function TrackersListCtrl(analytics, $scope, $resource, $location, trackerStorage, configuration) {
     updateNavi($location, 'page-link-trackers');
     var Tracker = $resource(configuration.ruuvitracker.url + 'trackers');
 
@@ -113,10 +113,10 @@ function TrackersListCtrl($scope, $resource, $location, trackerStorage, configur
     };
 
 }
-TrackersListCtrl.$inject = ['$scope', '$resource', '$location', 'trackerStorage', 
+TrackersListCtrl.$inject = ['analytics', '$scope', '$resource', '$location', 'trackerStorage', 
                             'configuration'];
 
-function CreateTrackerCtrl($scope, $location, $resource, configuration) {
+function CreateTrackerCtrl(analytics, $scope, $location, $resource, configuration) {
     updateNavi($location, 'page-link-trackers');
     // AngularJS silliness, must quote : in port number
     var url = configuration.ruuvitracker.url.replace(/:([01-9]+)/, '\\:$1');
@@ -165,13 +165,13 @@ function CreateTrackerCtrl($scope, $location, $resource, configuration) {
         
     }
 }
-CreateTrackerCtrl.$inject = ['$scope', '$location', '$resource', 'configuration'];
+CreateTrackerCtrl.$inject = ['analytics', '$scope', '$location', '$resource', 'configuration'];
 
-function ErrorCtrl($scope) {}
-ErrorCtrl.$inject = [];
+function ErrorCtrl(analytics, $scope) {}
+ErrorCtrl.$inject = ['analytics'];
 
-function DebugCtrl($scope, $location) {
+function DebugCtrl(analytics, $scope, $location) {
     updateNavi($location, 'page-link-trackers');
 }
-DebugCtrl.$inject = ['$scope', '$location'];
+DebugCtrl.$inject = ['analytics', '$scope', '$location'];
 

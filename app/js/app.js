@@ -2,7 +2,7 @@
 
 // Declare app level module which depends on filters, and services
 angular.module('ruuvitracker', ['ngResource', 'ruuvitracker.filters', 'ruuvitracker.services', 
-                                'ruuvitracker.directives']).
+                                'ruuvitracker.directives', 'analytics']).
   config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/', {templateUrl: 'partials/front.html', controller: FrontCtrl});
     $routeProvider.when('/map', {templateUrl: 'partials/map.html', controller: MapCtrl});
