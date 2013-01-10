@@ -1,14 +1,27 @@
+body {
+    padding-left: 0;
+    padding-right: 0;
+}
 #map-canvas {
     width: 100%; 
     height: 100%;
 }
-
+#map-page {
+    padding-left: 0;
+    padding-right: 0;
+}
 .search-form {
     display: inline;
 }
+.navbar {
+    margin-bottom: 1px;
+}
 
-
-
+@media (max-width: 320px) {
+    input.search-query {
+        width: 120px;
+    }
+}
 
 /** leaflet fixes */
 
