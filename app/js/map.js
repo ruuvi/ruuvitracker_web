@@ -146,11 +146,17 @@ var MapService = function(configuration, storageService, trackerService) {
         map.locate(opts);
     };
 
+    function isTouchDevice() {
+        return !!('ontouchstart' in window) // works on most browsers 
+            || !!('onmsgesturechange' in window); // works on ie10
+    }
+
     var create = function(canvasId, startLocation) {
         console.log("create:" + canvasId);
         var tiles = createMapTiles();
         var map = new L.Map(canvasId, 
-                            {zoom: configuration.defaultZoom, 
+                            {zoom: configuration.defaultZoom,
+                             zoomControl: false,
                              });
 
         // restore selected map layer
@@ -174,6 +180,10 @@ var MapService = function(configuration, storageService, trackerService) {
             baseMaps[tile.options.title] = tile;
         }
 
+        if(!isTouchDevice()) {
+            // disable zoom for touch devices
+            L.control.zoom().addTo(map);
+        }
         L.control.layers(baseMaps).addTo(map);
         // TODO use geolocation api instead
         // leaflet api loses information
