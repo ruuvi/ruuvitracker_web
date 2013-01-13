@@ -8,6 +8,8 @@ var Configuration = function() {
     // center of Helsinki
     this.defaultLocation = new L.LatLng(60.168564, 24.941111);
     this.defaultZoom = 13;
+    this.server = {};
+    this.server.fetchSize = 100;
 
     this.maps = [
         {title: "MML Perus",
