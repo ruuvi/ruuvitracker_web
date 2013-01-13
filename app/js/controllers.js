@@ -42,8 +42,6 @@ function MapCtrl(analytics, $scope, $location, mapService, geoCodingService, sou
 
     resizeHandler();
 
-
-
     trackerStorage.restoreSelectedTrackers();
 
     $scope.locateMe = function() {

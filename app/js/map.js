@@ -60,7 +60,7 @@ var MapService = function(configuration, storageService, trackerService) {
                         maxZoom: mapTiles.maxZoom,
                         minZoom: mapTiles.minZoom || 0};
             var tileLayer = undefined;
-            console.log(mapTiles.title, mapTiles.type);
+
             if(mapTiles.type == 'google') {
                 tileLayer = new L.Google(mapTiles.map_type, opts);
             } else if(mapTiles.type == 'bing') {
