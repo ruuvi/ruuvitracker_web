@@ -36,9 +36,10 @@ function MapCtrl(analytics, $scope, $location, mapService, geoCodingService, sou
         mapService.redraw();
     };
 
-    $(window).resize(function() {
-        resizeHandler();
-    });
+    $(window).resize(resizeHandler)
+    // transitionend event occurs when animation transition ends
+    // for example when navi is collapsed and map needs to be resized
+    $(document).on($.support.transition.end, resizeHandler);
 
     resizeHandler();
 
