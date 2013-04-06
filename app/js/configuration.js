@@ -70,7 +70,7 @@ var Configuration = function() {
          attribution: "Google Maps",
          maxZoom: 18
         },
-
+        /* 
         {title: "Bing Aerial",
          type: "bing",
          map_type: 'Aerial',
@@ -89,7 +89,7 @@ var Configuration = function() {
          api_key: "Anqm0F_JjIZvT0P3abS6KONpaBaKuTnITRrnYuiJCE0WOhH6ZbE4DzeT6brvKVR5",
          maxZoom: 18,
         },
-
+        */
         // birdseye needs centerPoint parameter
         /*
         {title: "Bing Birdseye",
