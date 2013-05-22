@@ -133,7 +133,7 @@ var TrackerStorage = function(storageService, trackerService, mapService) {
 
     var trackers = {};
     //trackers.lastTrackerQuery = undefined;
-
+    var eventReceivedListeners = [];
 
     // TODO used to convert several object types
     var convertData = function(obj) {
@@ -198,7 +198,14 @@ var TrackerStorage = function(storageService, trackerService, mapService) {
         trackers[trackerId].sessions[sessionId].session = session;
     }
 
+    var sendToEventListeners = function(event) {
+        _.each(eventReceivedListeners, function(listener) {
+            listener(event)
+        });
+    }
+
     var addEvent = function(event) {
+        sendToEventListeners(event);
         convertData(event);
         var trackerId = event.tracker_id;
         var sessionId = event.event_session_id;
@@ -314,4 +321,8 @@ var TrackerStorage = function(storageService, trackerService, mapService) {
         updateTracker(trackerId, callback);
     };
 
+    /** Callback will be called with incoming event as parameter.  */
+    this.listenEventReceived = function(callback) {
+        eventReceivedListeners.push(callback);
+    };
 }

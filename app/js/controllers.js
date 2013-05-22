@@ -169,8 +169,11 @@ CreateTrackerCtrl.$inject = ['analytics', '$scope', '$location', '$resource', 'c
 function ErrorCtrl(analytics, $scope) {}
 ErrorCtrl.$inject = ['analytics'];
 
-function DebugCtrl(analytics, $scope, $location) {
-    updateNavi($location, 'page-link-trackers');
+function DebugCtrl(analytics, $scope, $location, trackerStorage) {
+    updateNavi($location, 'page-link-debug');
+    trackerStorage.listenEventReceived(function(event) {
+        $scope.latestEvent = event;
+        $scope.$apply();
+    });
 }
-DebugCtrl.$inject = ['analytics', '$scope', '$location'];
 
