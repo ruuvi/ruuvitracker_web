@@ -46,3 +46,31 @@ body {
     z-index: 900;
 }
 
+#map-fullscreen-container {
+    top: 50px;
+    left: 0px;
+    position: absolute;
+    z-index: 1000;
+
+    box-shadow: 0 0 8px  rgba(0,0,0,0.4);
+    border: 1px solid #888;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    xclear: both;
+    xtext-align: center;
+}
+
+a.map-fullscreen-button {
+    color: black;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    padding: 4px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: block;
+}
+
+a.map-fullscreen-button:hover {
+    color: black;
+    text-decoration: none;
+}

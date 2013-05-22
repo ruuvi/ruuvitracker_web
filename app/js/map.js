@@ -151,6 +151,8 @@ var MapService = function(configuration, storageService, trackerService) {
             || !!('onmsgesturechange' in window); // works on ie10
     }
 
+    this.isTouchDevice = isTouchDevice;
+
     var create = function(canvasId, startLocation) {
         console.log("create:" + canvasId);
         var tiles = createMapTiles();

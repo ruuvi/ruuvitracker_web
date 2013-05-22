@@ -10,19 +10,25 @@ function updateNavi($location, pageClass) {
 function DefaultCtrl(analytics, $scope, $location) {
     updateNavi($location, 'page-link-help');
 }
-DefaultCtrl.$inject = ['analytics', '$scope', '$location'];
+
 
 function FrontCtrl(analytics, $scope, $location) {
     updateNavi($location, 'page-link-index');
 }
-FrontCtrl.$inject = ['analytics', '$scope', '$location'];
 
-function MapCtrl(analytics, $scope, $location, mapService, geoCodingService, soundService, trackerService, trackerStorage) {
+
+function MapCtrl(analytics, $rootScope, $scope, $location, mapService, geoCodingService, soundService, trackerService, trackerStorage) {
     updateNavi($location, 'page-link-map');
 
     mapService.open("map-canvas");
 
-    function resizeHandler() {
+    if(mapService.isTouchDevice() ) {
+        // touch devices do not have zoom controls, move 
+        // fullscreen toggle to top
+        $("#map-fullscreen-container").attr("style", "top: 0;");
+    }
+    $rootScope.showFullscreen = false;
+    function resizeMap() {
         var mapContainer = $("#map-canvas");
         if (!mapContainer.length) {
             return;
@@ -36,12 +42,16 @@ function MapCtrl(analytics, $scope, $location, mapService, geoCodingService, sou
         mapService.redraw();
     };
 
-    $(window).resize(resizeHandler)
-    // transitionend event occurs when animation transition ends
+    $(window).resize(resizeMap)
+    // bootstrap transition.end event occurs when animation transition ends
     // for example when navi is collapsed and map needs to be resized
-    $(document).on($.support.transition.end, resizeHandler);
+    //$(document).on($.support.transition.end, resizeHandler);
 
-    resizeHandler();
+
+    // TODO check if it possible to show menu on top of map and let
+    // map use 100% of available space
+    // TODO togging fullscreen should trigger resize
+    resizeMap();
 
     trackerStorage.restoreSelectedTrackers();
 
@@ -50,6 +60,18 @@ function MapCtrl(analytics, $scope, $location, mapService, geoCodingService, sou
         mapService.centerOnSelf();
     };
     
+    $scope.toggleFullscreen = function() {
+        if($rootScope.showFullscreen) {
+            $("#top-navigation").show();
+            $("#map-toolbar").show();
+        } else {
+            $("#top-navigation").hide();
+            $("#map-toolbar").hide();
+        }
+        $rootScope.showFullscreen = !$rootScope.showFullscreen;
+        resizeMap();
+    };
+
     $scope.searchAddress = function(address) {
         console.log("searchAddress:", address);
         if(!address) {
@@ -69,7 +91,7 @@ function MapCtrl(analytics, $scope, $location, mapService, geoCodingService, sou
             var closest = sorted[0];
             var closestLoc = new L.LatLng(closest.lat, closest.lon);
             console.log("Show " + closest.display_name + " (" + closestLoc + ")");
-            soundService.playPing();
+            //soundService.playPing();
             if(closest.boundingbox) {
                 var sw = new L.LatLng(closest.boundingbox[0], closest.boundingbox[2])
                 var ne = new L.LatLng(closest.boundingbox[1], closest.boundingbox[3])
@@ -83,8 +105,6 @@ function MapCtrl(analytics, $scope, $location, mapService, geoCodingService, sou
         geoCodingService.searchLocation(address, showClosest);
     };
 }
-MapCtrl.$inject = ['analytics', '$scope', '$location', 'mapService', 'geoCodingService', 'soundService', 'trackerService', 
-                   'trackerStorage'];
 
 function TrackersListCtrl(analytics, $scope, $resource, $location, trackerStorage, configuration) {
     updateNavi($location, 'page-link-trackers');
@@ -112,8 +132,6 @@ function TrackersListCtrl(analytics, $scope, $resource, $location, trackerStorag
     };
 
 }
-TrackersListCtrl.$inject = ['analytics', '$scope', '$resource', '$location', 'trackerStorage', 
-                            'configuration'];
 
 function CreateTrackerCtrl(analytics, $scope, $location, $resource, configuration) {
     updateNavi($location, 'page-link-trackers');
@@ -164,13 +182,15 @@ function CreateTrackerCtrl(analytics, $scope, $location, $resource, configuratio
         
     }
 }
-CreateTrackerCtrl.$inject = ['analytics', '$scope', '$location', '$resource', 'configuration'];
 
 function ErrorCtrl(analytics, $scope) {}
-ErrorCtrl.$inject = ['analytics'];
 
-function DebugCtrl(analytics, $scope, $location) {
-    updateNavi($location, 'page-link-trackers');
+
+function DebugCtrl(analytics, $scope, $location, trackerStorage) {
+    updateNavi($location, 'page-link-debug');
+    trackerStorage.listenEventReceived(function(event) {
+        $scope.latestEvent = event;
+        $scope.$apply();
+    });
 }
-DebugCtrl.$inject = ['analytics', '$scope', '$location'];
 
