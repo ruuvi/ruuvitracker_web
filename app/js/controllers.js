@@ -188,7 +188,11 @@ function ErrorCtrl(analytics, $scope) {}
 function DebugCtrl(analytics, $scope, $location, trackerStorage) {
     updateNavi($location, 'page-link-debug');
     trackerStorage.listenEventReceived(function(event) {
-        $scope.latestEvent = event;
+        try {
+            $scope.latestEvent = JSON.stringify(event, undefined, 2);
+        } catch (err) {
+            $scope.latestEvent = event;
+        }
         $scope.$apply();
     });
 }
