@@ -185,7 +185,6 @@ function CreateTrackerCtrl(analytics, $scope, $location, $resource, configuratio
 
 function ErrorCtrl(analytics, $scope) {}
 
-
 function DebugCtrl(analytics, $scope, $location, trackerStorage) {
     updateNavi($location, 'page-link-debug');
     trackerStorage.listenEventReceived(function(event) {
