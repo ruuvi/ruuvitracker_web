@@ -4,21 +4,30 @@
 angular.module('ruuvitracker.services', []).
     constant('version', '0.1').
     constant('configuration', new Configuration()).
-    factory('mapService', ['configuration', 'storageService', 'trackerService',
-                           function(configuration, storageService, trackerService) {  
-                               return new MapService(configuration, storageService, trackerService); 
+    factory('mapService', ['$log', 'configuration', 'storageService', 'trackerService',
+                           function($log, configuration, storageService, trackerService) {  
+                               return new MapService($log, configuration, storageService, trackerService); 
                            }] ).
-    factory('trackerStorage', ['storageService', 'trackerService', 'mapService',
-                               function(storageService, trackerService, mapService) {
-                                   return new TrackerStorage(storageService, trackerService, mapService);
+    factory('trackerStorage', ['$log', 'storageService', 'trackerService', 'mapService',
+                               function($log, storageService, trackerService, mapService) {
+                                   return new TrackerStorage($log, storageService, trackerService, mapService);
                               }] ).
-    factory('trackerService', ['configuration', 
-                               function(configuration) {
-                                   return new TrackerService(configuration);
+    factory('trackerService', ['$log', 'configuration', 
+                               function($log, configuration) {
+                                   return new TrackerService($log, configuration);
                                }] ).
-    service('soundService', SoundService).
-    service('storageService', StorageService).
-    service('geoCodingService', GeoCodingService).
+    factory('soundService', ['$log',
+                             function($log) {
+                                 return new SoundService($log);
+                             }]).
+    factory('storageService', ['$log', 
+                               function($log) {
+                                   return new StorageService($log);
+                               }]).
+    factory('geoCodingService', ['$log', 
+                                 function($log) {
+                                     return new GeoCodingService($log);
+                                 }]).
     factory('userResource', 
             ['configuration','$resource',
              function(configuration, $resource) {

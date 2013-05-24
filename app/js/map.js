@@ -43,7 +43,7 @@ L.Marker.Compass = L.Marker.extend({
 
 });
 
-var MapService = function(configuration, storageService, trackerService) {
+var MapService = function($log, configuration, storageService, trackerService) {
     var mapView = undefined;
     var selfLocation = undefined;
     var selfMarker = undefined;
@@ -94,7 +94,7 @@ var MapService = function(configuration, storageService, trackerService) {
             return marker;
         }
         if(!marker) {
-            console.log("options", options);
+            $log.info("options", options);
             var newMarker = new L.Marker(newLocation, options);
             newMarker.addTo(mapView);
             return newMarker;
@@ -107,12 +107,12 @@ var MapService = function(configuration, storageService, trackerService) {
     /* Use stored location if it is newer than timeoutSeconds, otherwise use
        default location. */
     var loadInitialLocation = function(map, location, timeoutSeconds) {
-        console.log("loadInitialLocation:", location);
+        $log.info("loadInitialLocation:", location);
         var data = storageService.fetch("map-location");
         var zoom = configuration.defaultZoom;
         // TODO error handling for corrupt data
         if(data) {
-            console.log("found existing data", data);
+            $log.info("found existing data", data);
             var now = new Date().getTime();
             if(data.timestamp && (now - (timeoutSeconds * 1000) < data.timestamp) ) { 
                 location = new L.LatLng(data.lat, data.lng);
@@ -125,7 +125,7 @@ var MapService = function(configuration, storageService, trackerService) {
     var updateSelfLocation = function(newLocation, accuracy) {
         // accuracy in meters. 
         // TODO draw accuracy circle?
-        console.log("updateSelfLocation:", newLocation);
+        $log.info("updateSelfLocation:", newLocation);
         selfLocation = newLocation;
         selfMarker = updateMarker(selfMarker, newLocation, 
                                   {icon: new L.Icon(
@@ -138,7 +138,7 @@ var MapService = function(configuration, storageService, trackerService) {
     };
 
     var startLocating_internal = function(map) {
-        console.log("startLocating:");
+        $log.info("startLocating:");
         var opts = {timeout: 10000,
                     maximumAge: 10000,
                     enableHighAccuracy: true,
@@ -154,7 +154,7 @@ var MapService = function(configuration, storageService, trackerService) {
     this.isTouchDevice = isTouchDevice;
 
     var create = function(canvasId, startLocation) {
-        console.log("create:" + canvasId);
+        $log.info("create:" + canvasId);
         var tiles = createMapTiles();
         var map = new L.Map(canvasId, 
                             {zoom: configuration.defaultZoom,
@@ -190,12 +190,12 @@ var MapService = function(configuration, storageService, trackerService) {
         // TODO use geolocation api instead
         // leaflet api loses information
         map.on("locationfound", function(event) {
-            console.log("location found", event);
+            $log.info("location found", event);
             // trackerService.sendEvent(event);
             updateSelfLocation(event.latlng, event.accuracy);
         });
         map.on("locationerror", function(event) {
-            console.log("location error", event);
+            $log.info("location error", event);
         });
         var hour = 60 * 60;
         loadInitialLocation(map, startLocation, hour);
@@ -210,7 +210,7 @@ var MapService = function(configuration, storageService, trackerService) {
     };
 
     var redisplay = function(canvasId) {
-        console.log("redisplay:" + canvasId);
+        $log.info("redisplay:" + canvasId);
         var oldContainer = mapView.getContainer();
         var newContainer = $('#' + canvasId);
         newContainer.replaceWith(oldContainer);
@@ -219,7 +219,7 @@ var MapService = function(configuration, storageService, trackerService) {
 
     /* Open existing map or create new */
     this.open = function(canvasId, startLocation) {
-        console.log("open:" + canvasId);
+        $log.info("open:" + canvasId);
         if(mapView) {
             redisplay(canvasId);
         } else {
@@ -235,7 +235,7 @@ var MapService = function(configuration, storageService, trackerService) {
     /* Center location of map around latest user position (if
        available) */
     this.centerOnSelf = function() {
-        console.log("centerOnSelf:");
+        $log.info("centerOnSelf:");
         if(selfLocation) {
             this.center(selfLocation, mapView.getZoom());
         }
@@ -248,13 +248,13 @@ var MapService = function(configuration, storageService, trackerService) {
 
     /* Center map on give LatLngBounds object */
     this.centerBounds = function(bounds, maxZoom) {
-        console.log("centerBounds:", bounds.toBBoxString());
+        $log.info("centerBounds:", bounds.toBBoxString());
         mapView.fitBounds(bounds);
     }
 
     /* Center map on current self location */
     this.locate = function() {
-        console.log("locate:");
+        $log.info("locate:");
         if(selfLocation) {
             this.center(selfLocation, 18);
         }
@@ -267,7 +267,7 @@ var MapService = function(configuration, storageService, trackerService) {
     
     /* Stop tracking current location */
     this.stopLocating = function() {
-        console.log("stopLocating:");
+        $log.info("stopLocating:");
         mapView.stopLocate();
     };
 
@@ -328,7 +328,7 @@ var MapService = function(configuration, storageService, trackerService) {
 
         var angle = event.location.heading;
         if(!tracker.marker) {
-            console.log("Create new marker");
+            $log.info("Create new marker");
             // TODO Compass makes slight flashing 
             tracker.marker = new L.Marker.Compass(event.latlng, {
                 icon: pathIcon(angle)

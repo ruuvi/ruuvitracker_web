@@ -5,7 +5,7 @@ var Configuration = function() {
     this.google.analyticsId = 'UA-3439345-5'; 
     this.ruuvitracker = {};
     this.ruuvitracker.url = 'http://dev-server.ruuvitracker.fi/api/v1-dev/';
-    this.ruuvitracker.url = 'http://localhost:8080/api/v1-dev/';
+    //this.ruuvitracker.url = 'http://localhost:8080/api/v1-dev/';
 
     // AngularJS silliness, must quote : in port number
     this.resourceUrl = this.ruuvitracker.url.replace(/:([01-9]+)/, '\\:$1');

@@ -7,15 +7,15 @@ function updateNavi($location, pageClass) {
 }
 
 /* Controllers */
-function DefaultCtrl($scope, $location) {
+function DefaultCtrl($log, $scope, $location) {
     updateNavi($location, 'page-link-help');
 }
 
-function FrontCtrl($scope, $location) {
+function FrontCtrl($log, $scope, $location) {
     updateNavi($location, 'page-link-index');
 }
 
-function MapCtrl($rootScope, $scope, $location, mapService, geoCodingService, soundService, trackerService, trackerStorage) {
+function MapCtrl($log, $scope, $rootScope, $location, mapService, geoCodingService, soundService, trackerService, trackerStorage) {
     updateNavi($location, 'page-link-map');
 
     mapService.open("map-canvas");
@@ -54,7 +54,7 @@ function MapCtrl($rootScope, $scope, $location, mapService, geoCodingService, so
     trackerStorage.restoreSelectedTrackers();
 
     $scope.locateMe = function() {
-        console.log("locateMe:");
+        $log.info("locateMe:");
         mapService.centerOnSelf();
     };
     
@@ -71,7 +71,7 @@ function MapCtrl($rootScope, $scope, $location, mapService, geoCodingService, so
     };
 
     $scope.searchAddress = function(address) {
-        console.log("searchAddress:", address);
+        $log.log("searchAddress:", address);
         if(!address) {
             return;
         }
@@ -79,7 +79,7 @@ function MapCtrl($rootScope, $scope, $location, mapService, geoCodingService, so
         // TODO improve, finds funny results
         var showClosest = function(data) {
             var currentLocation = mapService.currentCenter();
-            console.log("locate found " + data.length + " results");
+            $log.log("locate found " + data.length + " results");
             if(!data || !data.length) {
                 return;
             }
@@ -88,7 +88,7 @@ function MapCtrl($rootScope, $scope, $location, mapService, geoCodingService, so
             })
             var closest = sorted[0];
             var closestLoc = new L.LatLng(closest.lat, closest.lon);
-            console.log("Show " + closest.display_name + " (" + closestLoc + ")");
+            $log.log("Show " + closest.display_name + " (" + closestLoc + ")");
             //soundService.playPing();
             if(closest.boundingbox) {
                 var sw = new L.LatLng(closest.boundingbox[0], closest.boundingbox[2])
@@ -104,7 +104,7 @@ function MapCtrl($rootScope, $scope, $location, mapService, geoCodingService, so
     };
 }
 
-function TrackersListCtrl($scope, $location, trackerStorage) {
+function TrackersListCtrl($log, $scope, $location, trackerStorage) {
     updateNavi($location, 'page-link-trackers');
 
     trackerStorage.restoreSelectedTrackers();
@@ -120,7 +120,7 @@ function TrackersListCtrl($scope, $location, trackerStorage) {
         return date.from(new Date());
     };
     $scope.fetchTrackers = function() {
-        console.log("fetchTrackers");
+        $log.log("fetchTrackers");
         // update view after trackers have been fetched
         function updateView() {
             $scope.$apply();
@@ -130,7 +130,7 @@ function TrackersListCtrl($scope, $location, trackerStorage) {
 
 }
 
-function CreateTrackerCtrl($scope, $location, trackerResource) {
+function CreateTrackerCtrl($log, $scope, $location, trackerResource) {
     updateNavi($location, 'page-link-trackers');
 
     $scope.generateSharedSecret = function() {
@@ -151,9 +151,9 @@ function CreateTrackerCtrl($scope, $location, trackerResource) {
             $scope.feedback = {error: true, message: "Wrong demo password"};
             return;
         }
-        console.log("creating ", trackerCode);
+        $log.log("creating ", trackerCode);
         function success(e) {
-            console.log("Successfully created new tracker", e.tracker);
+            $log.info("Successfully created new tracker", e.tracker);
             $scope.feedback = {success: true, 
                                message: "Successfully created new tracker",
                                tracker: e.tracker};
@@ -162,22 +162,21 @@ function CreateTrackerCtrl($scope, $location, trackerResource) {
             var data = e.data;
             var msg;
             if(data.error && data.error.message) {
-                console.log("Failed to create tracker", data.error.message);
+                $log.info("Failed to create tracker", data.error.message);
                 msg=data.error.message;
             } else {
-                console.log("Failed to create tracker:", data.status);
+                $log.info("Failed to create tracker:", data.status);
                 msg="Failed to create tracker";
             }
             $scope.feedback = {error: true, message: msg};
         };
         var result = trackerResource.createTracker({tracker: {name: trackerName, code: trackerCode, shared_secret: sharedSecret}}, success, error);
-        
     }
 }
 
-function ErrorCtrl($scope) {}
+function ErrorCtrl($log, $scope) {}
 
-function DebugCtrl($scope, $location, trackerStorage) {
+function DebugCtrl($log, $scope, $location, trackerStorage) {
     updateNavi($location, 'page-link-debug');
     trackerStorage.listenEventReceived(function(event) {
         try {

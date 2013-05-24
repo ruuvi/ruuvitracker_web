@@ -1,6 +1,6 @@
 'use strict';
 
-var StorageService = function() {
+var StorageService = function($log) {
     // TODO add support for cookies
     var useLocalStorage = function() {
         return localStorage;
@@ -19,15 +19,15 @@ var StorageService = function() {
     };
 
     var storeCookie = function(key, data) {
-        console.log("storeCookie() not implemented yet");
+        $log.log("storeCookie() not implemented yet");
     };
 
     var fetchCookie = function(key) {
-        console.log("fetchCookie() not implemented yet");
+        $log.info("fetchCookie() not implemented yet");
     };
 
     var removeCookie = function(key) {
-        console.log("removeCookie() not implemented yet");
+        $log.info("removeCookie() not implemented yet");
     };
 
     /* Store data as JSON serialized string and 

@@ -1,6 +1,6 @@
 'use strict';
 
-var SoundService = function() {
+var SoundService = function($log) {
     var pingUrl = "snd/ping.wav";
     var wavMime = "audio/wav"
     var map = {ping: pingUrl};
@@ -18,7 +18,7 @@ var SoundService = function() {
 
     /* Plays ping sound */
     this.playPing = function() {
-        console.log("playPing:");
+        $log.info("playPing:");
         play("ping");
     };
 };

@@ -15,7 +15,7 @@ var ajaxPost = function(url, data, success, error) {
     jQuery.ajax(url, params).done(success).fail(error);
 }
 
-var GeoCodingService = function() {
+var GeoCodingService = function($log) {
     var addressUrl = 'http://nominatim.openstreetmap.org/search';
     var locationUrl = 'http://nominatim.openstreetmap.org/reverse';
 
@@ -33,7 +33,7 @@ var GeoCodingService = function() {
 };
 
 // TODO inject jquery/ajax thingy
-var TrackerService = function(configuration) {
+var TrackerService = function($log, configuration) {
     this.listTrackers = function(success, error) {
         ajaxGet(configuration.ruuvitracker.url + "trackers", {}, success, error);
     }
@@ -122,14 +122,14 @@ var TrackerService = function(configuration) {
         var message = generateJsonMessage(trackerCode, sharedSecret, session, event);
         var url = configuration.ruuvitracker.url + "events";
         ajaxPost(url, message, function(e) {
-            console.log("Sent message to tracker server");
+            $log.info("Sent message to tracker server");
         });
     }
 };
 
 
 // TODO most of this belongs probably to $rootScope
-var TrackerStorage = function(storageService, trackerService, mapService) {
+var TrackerStorage = function($log, storageService, trackerService, mapService) {
 
     var trackers = {};
     //trackers.lastTrackerQuery = undefined;
@@ -260,7 +260,7 @@ var TrackerStorage = function(storageService, trackerService, mapService) {
     this.listTrackers = function(dataFetchedCallback) {
         // TODO check how recent data is
         function callback(data) {
-            console.log("Found " + data.trackers.length + " trackers");
+            $log.info("Found " + data.trackers.length + " trackers");
             _.each(data.trackers, addTracker);
             dataFetchedCallback();
         };
