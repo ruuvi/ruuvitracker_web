@@ -10,13 +10,21 @@
       </form>
     </div>
     <div id="map-canvas" >
-      Map goes here
+      
       <div class="leaflet-control-container">
-        <div id="map-fullscreen-container">
+        <div id="track-button-container">
+          <a id="track-button" class="leaflet-bar-part
+               {{locationSend.cssClass}}" ng-click="toggleLocationSending()"
+             title="{{locationSend.title}}">
+            {{locationSend.status}}
+          </a>
+        </div>
+      </div>
+      <div class="leaflet-control-container">
+        <div id="map-fullscreen-button-container">
           <a ng-click="toggleFullscreen()"
              class="map-fullscreen-button leaflet-bar-part"
              title="Toggle fullscreen"><i class="icon-fullscreen"></i></a>
-
         </div>
       </div>
     </div>

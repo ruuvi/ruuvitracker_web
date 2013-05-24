@@ -114,10 +114,11 @@ var TrackerService = function($log, configuration) {
         return trackerMessage;
     }
 
+    // TODO better event handling
     var session = "" + new Date().getTime();
     this.sendEvent = function(event) {
-        var trackerCode = "foobar";
-        var sharedSecret = "foobar";
+        var trackerCode = configuration.ruuvitracker.tracker.code;
+        var sharedSecret = configuration.ruuvitracker.tracker.sharedSecret;
 
         var message = generateJsonMessage(trackerCode, sharedSecret, session, event);
         var url = configuration.ruuvitracker.url + "events";

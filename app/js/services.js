@@ -4,9 +4,9 @@
 angular.module('ruuvitracker.services', []).
     constant('version', '0.1').
     constant('configuration', new Configuration()).
-    factory('mapService', ['$log', 'configuration', 'storageService', 'trackerService',
-                           function($log, configuration, storageService, trackerService) {  
-                               return new MapService($log, configuration, storageService, trackerService); 
+    factory('mapService', ['$log', '$rootScope', 'configuration', 'storageService', 'trackerService',
+                           function($log, $rootScope, configuration, storageService, trackerService) {  
+                               return new MapService($log, $rootScope, configuration, storageService, trackerService); 
                            }] ).
     factory('trackerStorage', ['$log', 'storageService', 'trackerService', 'mapService',
                                function($log, storageService, trackerService, mapService) {

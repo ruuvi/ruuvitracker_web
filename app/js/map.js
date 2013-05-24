@@ -43,12 +43,14 @@ L.Marker.Compass = L.Marker.extend({
 
 });
 
-var MapService = function($log, configuration, storageService, trackerService) {
+var MapService = function($log, $rootScope, configuration, storageService, trackerService) {
+    // TODO move these to $rootScope?
     var mapView = undefined;
     var selfLocation = undefined;
     var selfMarker = undefined;
 
     var paths = {};
+    $rootScope.sendLocationToServer = false;
 
     var createMapTiles = function() {
         var tiles = [];
@@ -153,7 +155,7 @@ var MapService = function($log, configuration, storageService, trackerService) {
 
     this.isTouchDevice = isTouchDevice;
 
-    var create = function(canvasId, startLocation) {
+    var create = function(canvasId, startingLocation) {
         $log.info("create:" + canvasId);
         var tiles = createMapTiles();
         var map = new L.Map(canvasId, 
@@ -189,16 +191,19 @@ var MapService = function($log, configuration, storageService, trackerService) {
         L.control.layers(baseMaps).addTo(map);
         // TODO use geolocation api instead
         // leaflet api loses information
+        // TODO tracking user location should be separate service
         map.on("locationfound", function(event) {
             $log.info("location found", event);
-            // trackerService.sendEvent(event);
+            if($rootScope.sendLocationToServer) {
+                trackerService.sendEvent(event);
+            }
             updateSelfLocation(event.latlng, event.accuracy);
         });
         map.on("locationerror", function(event) {
             $log.info("location error", event);
         });
         var hour = 60 * 60;
-        loadInitialLocation(map, startLocation, hour);
+        loadInitialLocation(map, startingLocation, hour);
         // listen for move and zoom events so that location can be restored
         map.on("zoomend", storeMapState);
         map.on("moveend", storeMapState);

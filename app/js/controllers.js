@@ -70,6 +70,27 @@ function MapCtrl($log, $scope, $rootScope, $location, mapService, geoCodingServi
         resizeMap();
     };
 
+    function redrawLocationSendButton() {
+        $scope.locationSend = {}
+        if($rootScope.sendLocationToServer) {
+            $scope.locationSend.cssClass = "tracking-active";
+            $scope.locationSend.title = "Sending your location to RuuviTracker server.";
+            $scope.locationSend.status = "Tracking";
+        } else {
+            $scope.locationSend.cssClass = "tracking-passive";
+            $scope.locationSend.title = "Not sending data to server.";
+            $scope.locationSend.status = "Not tracking";
+        }
+    }
+
+    redrawLocationSendButton();
+
+    $scope.toggleLocationSending = function() {
+        $rootScope.sendLocationToServer = !$rootScope.sendLocationToServer;
+        $log.info("Toggle location sending", $rootScope.sendLocationToServer);
+        redrawLocationSendButton();
+    }
+
     $scope.searchAddress = function(address) {
         $log.log("searchAddress:", address);
         if(!address) {

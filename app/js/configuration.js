@@ -7,6 +7,10 @@ var Configuration = function() {
     this.ruuvitracker.url = 'http://dev-server.ruuvitracker.fi/api/v1-dev/';
     //this.ruuvitracker.url = 'http://localhost:8080/api/v1-dev/';
 
+    this.ruuvitracker.tracker = {};
+    this.ruuvitracker.tracker.code = 'foobar';
+    this.ruuvitracker.tracker.sharedSecret = 'foobar';
+
     // AngularJS silliness, must quote : in port number
     this.resourceUrl = this.ruuvitracker.url.replace(/:([01-9]+)/, '\\:$1');
     // center of Helsinki
