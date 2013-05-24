@@ -43,7 +43,7 @@ function MapCtrl($log, $scope, $rootScope, $location, mapService, geoCodingServi
     $(window).resize(resizeMap)
     // bootstrap transition.end event occurs when animation transition ends
     // for example when navi is collapsed and map needs to be resized
-    //$(document).on($.support.transition.end, resizeHandler);
+    $(document).on($.support.transition.end, resizeMap);
 
 
     // TODO check if it possible to show menu on top of map and let
