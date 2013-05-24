@@ -7,17 +7,15 @@ function updateNavi($location, pageClass) {
 }
 
 /* Controllers */
-function DefaultCtrl(analytics, $scope, $location) {
+function DefaultCtrl($scope, $location) {
     updateNavi($location, 'page-link-help');
 }
 
-
-function FrontCtrl(analytics, $scope, $location) {
+function FrontCtrl($scope, $location) {
     updateNavi($location, 'page-link-index');
 }
 
-
-function MapCtrl(analytics, $rootScope, $scope, $location, mapService, geoCodingService, soundService, trackerService, trackerStorage) {
+function MapCtrl($rootScope, $scope, $location, mapService, geoCodingService, soundService, trackerService, trackerStorage) {
     updateNavi($location, 'page-link-map');
 
     mapService.open("map-canvas");
@@ -106,7 +104,7 @@ function MapCtrl(analytics, $rootScope, $scope, $location, mapService, geoCoding
     };
 }
 
-function TrackersListCtrl(analytics, $scope, $location, trackerStorage) {
+function TrackersListCtrl($scope, $location, trackerStorage) {
     updateNavi($location, 'page-link-trackers');
 
     trackerStorage.restoreSelectedTrackers();
@@ -132,7 +130,7 @@ function TrackersListCtrl(analytics, $scope, $location, trackerStorage) {
 
 }
 
-function CreateTrackerCtrl(analytics, $scope, $location, trackerResource) {
+function CreateTrackerCtrl($scope, $location, trackerResource) {
     updateNavi($location, 'page-link-trackers');
 
     $scope.generateSharedSecret = function() {
@@ -177,9 +175,9 @@ function CreateTrackerCtrl(analytics, $scope, $location, trackerResource) {
     }
 }
 
-function ErrorCtrl(analytics, $scope) {}
+function ErrorCtrl($scope) {}
 
-function DebugCtrl(analytics, $scope, $location, trackerStorage) {
+function DebugCtrl($scope, $location, trackerStorage) {
     updateNavi($location, 'page-link-debug');
     trackerStorage.listenEventReceived(function(event) {
         try {
