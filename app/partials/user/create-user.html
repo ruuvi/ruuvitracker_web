@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <h1>Create user account</h1>
+  <form id="create-user-form"
+        ng-submit="createUser(username, password, retyped_password)"
+        ng-hide="feedback.success">
+    <fieldset>
+      <ol>
+        <li>
+          <label for="email">Email:</label>
+          <input id="email" size="30" maxlength="256"
+                 type="email"
+                 placeholder="Email address" type="text"
+                 required="required"
+                 autocomplete="off" ng-model="username"
+                 />
+        </li>
+        <li>
+          <label for="password">Password:</label>
+          <input id="password" size="30" maxlength="30"
+                 type="password" placeholder="Give a password"
+                 required="required"
+                 autocomplete="off" ng-model="password"/>
+        </li>
+        <li>
+          <label for="password">Retype password:</label>
+          <input id="shared-secret" size="30" maxlength="30"
+                 type="password" placeholder="Retype your password here"
+                 required="required"
+                 autocomplete="off" ng-model="retyped_password"/>
+        </li>
+      </ol>
+    </fieldset>
+
+    <div class="alert alert-error" ng-show="feedback.error">
+      <span>{{feedback.message}}</span>
+    </div>
+    <fieldset>
+      <input id="create-user-button" class="btn" type="submit"
+             value="Create!" />
+    </fieldset>
+
+  </form>
+  <div ng-show="feedback.success">
+    <div class="alert alert-success">
+      <span>{{feedback.message}}</span>
+    </div>
+  </div>
+
+</div>

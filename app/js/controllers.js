@@ -106,9 +106,8 @@ function MapCtrl(analytics, $rootScope, $scope, $location, mapService, geoCoding
     };
 }
 
-function TrackersListCtrl(analytics, $scope, $resource, $location, trackerStorage, configuration) {
+function TrackersListCtrl(analytics, $scope, $location, trackerStorage) {
     updateNavi($location, 'page-link-trackers');
-    var Tracker = $resource(configuration.ruuvitracker.url + 'trackers');
 
     trackerStorage.restoreSelectedTrackers();
 
@@ -133,13 +132,8 @@ function TrackersListCtrl(analytics, $scope, $resource, $location, trackerStorag
 
 }
 
-function CreateTrackerCtrl(analytics, $scope, $location, $resource, configuration) {
+function CreateTrackerCtrl(analytics, $scope, $location, trackerResource) {
     updateNavi($location, 'page-link-trackers');
-    // AngularJS silliness, must quote : in port number
-    var url = configuration.ruuvitracker.url.replace(/:([01-9]+)/, '\\:$1');
-    // TODO move to dependency injection/trackerService
-    var Tracker = $resource(url + 'trackers', {},
-                            {createTracker: {method: 'POST'}});
 
     $scope.generateSharedSecret = function() {
         var secret = '';
@@ -178,7 +172,7 @@ function CreateTrackerCtrl(analytics, $scope, $location, $resource, configuratio
             }
             $scope.feedback = {error: true, message: msg};
         };
-        var result = Tracker.createTracker({tracker: {name: trackerName, code: trackerCode, shared_secret: sharedSecret}}, success, error);
+        var result = trackerResource.createTracker({tracker: {name: trackerName, code: trackerCode, shared_secret: sharedSecret}}, success, error);
         
     }
 }

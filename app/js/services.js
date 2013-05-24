@@ -18,5 +18,17 @@ angular.module('ruuvitracker.services', []).
                                }] ).
     service('soundService', SoundService).
     service('storageService', StorageService).
-    service('geoCodingService', GeoCodingService)
+    service('geoCodingService', GeoCodingService).
+    factory('userResource', 
+            ['configuration','$resource',
+             function(configuration, $resource) {
+                 return $resource(configuration.resourceUrl + 'users', {},
+                                  {create: {method: 'POST'}});
+             }]).
+    factory('trackerResource',
+            ['configuration','$resource',
+             function(configuration, $resource) {
+                 return $resource(configuration.resourceUrl + 'trackers', {},
+                                  {createTracker: {method: 'POST'}});
+             }])
 ;
