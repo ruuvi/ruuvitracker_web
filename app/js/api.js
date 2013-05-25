@@ -275,6 +275,8 @@ var TrackerStorage = function($log, $rootScope, storageService, trackerService, 
         return trackers;
     }
 
+    /** Stores activity state (true/false) of tracker to localStorage. 
+        Enables or disables event fetching for trackers. */
     this.fetchTrackerEvents = function(trackerId, state) {
         ensureStructure(trackerId);
         trackers[trackerId].fetch = state;
@@ -296,7 +298,8 @@ var TrackerStorage = function($log, $rootScope, storageService, trackerService, 
         }
         storageService.store('selected-trackers', selected);
     }
-
+    
+    /** Starts to fetch events for selected trackers */
     this.restoreSelectedTrackers = function() {
         var selectedTrackers = storageService.fetch('selected-trackers', {});
         for(var trackerId in selectedTrackers) {
