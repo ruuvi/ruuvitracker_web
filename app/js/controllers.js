@@ -199,13 +199,6 @@ function ErrorCtrl($log, $scope) {}
 
 function DebugCtrl($log, $scope, $location, trackerStorage) {
     updateNavi($location, 'page-link-debug');
-    trackerStorage.listenEventReceived(function(event) {
-        try {
-            $scope.latestEvent = JSON.stringify(event, undefined, 2);
-        } catch (err) {
-            $scope.latestEvent = event;
-        }
-        $scope.$apply();
-    });
+
 }
 

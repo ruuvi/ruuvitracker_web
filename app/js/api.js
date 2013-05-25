@@ -130,7 +130,7 @@ var TrackerService = function($log, configuration) {
 
 
 // TODO most of this belongs probably to $rootScope
-var TrackerStorage = function($log, storageService, trackerService, mapService) {
+var TrackerStorage = function($log, $rootScope, storageService, trackerService, mapService) {
 
     var trackers = {};
     //trackers.lastTrackerQuery = undefined;
@@ -200,13 +200,19 @@ var TrackerStorage = function($log, storageService, trackerService, mapService) 
     }
 
     var sendToEventListeners = function(event) {
-        _.each(eventReceivedListeners, function(listener) {
-            listener(event)
-        });
+        // TODO JSON stringify should be in DebugCtrl
+        var copy = $.extend({}, event);
+        try {
+            $rootScope.latestReceivedEvent = JSON.stringify(event, undefined, 2);
+        } catch (err) {
+            $rootScope.latestReceivedEvent = event;
+        }
+        $rootScope.$apply();
     }
 
     var addEvent = function(event) {
         sendToEventListeners(event);
+        // TODO convert data should return modified copy
         convertData(event);
         var trackerId = event.tracker_id;
         var sessionId = event.event_session_id;
@@ -322,8 +328,4 @@ var TrackerStorage = function($log, storageService, trackerService, mapService) 
         updateTracker(trackerId, callback);
     };
 
-    /** Callback will be called with incoming event as parameter.  */
-    this.listenEventReceived = function(callback) {
-        eventReceivedListeners.push(callback);
-    };
 }
