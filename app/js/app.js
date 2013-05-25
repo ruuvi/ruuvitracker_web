@@ -12,6 +12,7 @@ angular.module('ruuvitracker', ['ngResource',
     $routeProvider.when('/trackers', {templateUrl: 'partials/trackers-list.html', controller: TrackersListCtrl});
     $routeProvider.when('/create-tracker', {templateUrl: 'partials/create-tracker.html', controller: CreateTrackerCtrl});
     $routeProvider.when('/register', {templateUrl: 'partials/user/create-user.html', controller: CreateUserCtrl});
+    $routeProvider.when('/login', {templateUrl: 'partials/user/login.html', controller: AuthenticationCtrl});
     $routeProvider.when('/debug', {templateUrl: 'partials/debug.html', controller: DebugCtrl});
     $routeProvider.when('/help', {templateUrl: 'partials/help.html', controller: DefaultCtrl});
     $routeProvider.when('/error', {templateUrl: 'partials/error.html', controller: ErrorCtrl});

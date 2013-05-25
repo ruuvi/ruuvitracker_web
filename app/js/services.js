@@ -35,6 +35,12 @@ angular.module('ruuvitracker.services', []).
                  return $resource(configuration.resourceUrl + 'users', {},
                                   {create: {method: 'POST'}});
              }]).
+    factory('authResource', 
+            ['configuration','$resource',
+             function(configuration, $resource) {
+                 return $resource(configuration.resourceUrl + 'session', {},
+                                  {authenticate: {method: 'POST'}});
+             }]).
     factory('trackerResource',
             ['configuration','$resource',
              function(configuration, $resource) {
