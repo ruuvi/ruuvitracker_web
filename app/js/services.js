@@ -10,8 +10,7 @@ angular.module('ruuvitracker.services', []).
                            }] ).
     factory('trackerStorage', ['$log', '$rootScope', 'storageService', 'trackerService', 'mapService',
                                function($log, $rootScope, storageService, trackerService, mapService) {
-                                   var trackerStorage = new TrackerStorage($log, $rootScope, storageService, trackerService, mapService);
-                                   trackerStorage.restoreSelectedTrackers();
+                                   return new TrackerStorage($log, $rootScope, storageService, trackerService, mapService);
                                    return trackerStorage;
                               }] ).
     factory('trackerService', ['$log', 'configuration', 
@@ -41,5 +40,9 @@ angular.module('ruuvitracker.services', []).
              function(configuration, $resource) {
                  return $resource(configuration.resourceUrl + 'trackers', {},
                                   {createTracker: {method: 'POST'}});
-             }])
-;
+             }]).
+    run(function(trackerStorage)  {
+        // Execute at application startup
+        trackerStorage.restoreSelectedTrackers();        
+    });
+

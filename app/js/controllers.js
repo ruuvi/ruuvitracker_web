@@ -15,7 +15,7 @@ function FrontCtrl($log, $scope, $location) {
     updateNavi($location, 'page-link-index');
 }
 
-function MapCtrl($log, $scope, $rootScope, $location, mapService, geoCodingService, soundService, trackerService, trackerStorage) {
+function MapCtrl($log, $scope, $rootScope, $location, mapService, geoCodingService, soundService, trackerService) {
     updateNavi($location, 'page-link-map');
 
     mapService.open("map-canvas");
@@ -50,8 +50,6 @@ function MapCtrl($log, $scope, $rootScope, $location, mapService, geoCodingServi
     // map use 100% of available space
     // TODO togging fullscreen should trigger resize
     resizeMap();
-
-    //trackerStorage.restoreSelectedTrackers();
 
     $scope.locateMe = function() {
         $log.info("locateMe:");
@@ -195,7 +193,7 @@ function CreateTrackerCtrl($log, $scope, $location, trackerResource) {
 
 function ErrorCtrl($log, $scope) {}
 
-function DebugCtrl($log, $scope, $location, trackerStorage) {
+function DebugCtrl($log, $scope, $location) {
     updateNavi($location, 'page-link-debug');
 
 }
