@@ -10,7 +10,9 @@ angular.module('ruuvitracker.services', []).
                            }] ).
     factory('trackerStorage', ['$log', '$rootScope', 'storageService', 'trackerService', 'mapService',
                                function($log, $rootScope, storageService, trackerService, mapService) {
-                                   return new TrackerStorage($log, $rootScope, storageService, trackerService, mapService);
+                                   var trackerStorage = new TrackerStorage($log, $rootScope, storageService, trackerService, mapService);
+                                   trackerStorage.restoreSelectedTrackers();
+                                   return trackerStorage;
                               }] ).
     factory('trackerService', ['$log', 'configuration', 
                                function($log, configuration) {

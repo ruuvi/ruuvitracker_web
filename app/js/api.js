@@ -301,7 +301,10 @@ var TrackerStorage = function($log, $rootScope, storageService, trackerService, 
     
     /** Starts to fetch events for selected trackers */
     this.restoreSelectedTrackers = function() {
+
         var selectedTrackers = storageService.fetch('selected-trackers', {});
+        // TODO Object.keys() not supported in IE8
+        $log.info("Restoring selected " + Object.keys(selectedTrackers).length + " trackers. Starting event polling.");
         for(var trackerId in selectedTrackers) {
             ensureStructure(trackerId);
             trackers[trackerId].fetch = true;

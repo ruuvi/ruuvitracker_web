@@ -17,6 +17,6 @@ angular.module('ruuvitracker', ['ngResource',
     $routeProvider.when('/error', {templateUrl: 'partials/error.html', controller: ErrorCtrl});
     $routeProvider.otherwise({redirectTo: '/'});
   }]).
-  config(['$locationProvider', function($locationProvider) {
+    config(['$locationProvider', function($locationProvider) {
       // $locationProvider.html5Mode(true).hashPrefix('!');
   }]);

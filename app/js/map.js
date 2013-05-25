@@ -345,6 +345,11 @@ var MapService = function($log, $rootScope, configuration, storageService, track
             tracker.marker.setIconAngle(angle);
         }
 
+        /** TODO if event is received before map is initialized, routes
+            and markers are not shown.
+            Map should read these (paths) when initializing
+        */
+
         if(mapView) {
             session.path.addTo(mapView);
             tracker.marker.addTo(mapView);

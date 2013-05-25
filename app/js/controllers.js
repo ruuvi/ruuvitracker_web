@@ -51,7 +51,7 @@ function MapCtrl($log, $scope, $rootScope, $location, mapService, geoCodingServi
     // TODO togging fullscreen should trigger resize
     resizeMap();
 
-    trackerStorage.restoreSelectedTrackers();
+    //trackerStorage.restoreSelectedTrackers();
 
     $scope.locateMe = function() {
         $log.info("locateMe:");
@@ -127,8 +127,6 @@ function MapCtrl($log, $scope, $rootScope, $location, mapService, geoCodingServi
 
 function TrackersListCtrl($log, $scope, $location, trackerStorage) {
     updateNavi($location, 'page-link-trackers');
-
-    trackerStorage.restoreSelectedTrackers();
 
     $scope.selectTracker = function(trackerData) {
         trackerStorage.fetchTrackerEvents(trackerData.tracker.id, trackerData.fetch);
