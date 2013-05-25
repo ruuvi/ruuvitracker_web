@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <h1>Create group</h1>
+  <form id="create-user-form"
+        ng-submit="createGroup(group)"
+        ng-hide="feedback.success">
+    <fieldset>
+      <p>
+        some text about what the groups are
+      </p>
+      <ol>
+        <li>
+          <label for="group">Group name:</label>
+          <input id="group" size="30" maxlength="256"
+                 type="text"
+                 placeholder="Group name"
+                 required="required"
+                 autocomplete="off" ng-model="group" />
+        </li>
+      </ol>
+    </fieldset>
+
+    <div class="alert alert-error" ng-show="feedback.error">
+      <span>{{feedback.message}}</span>
+    </div>
+    <fieldset>
+      <input id="create-user-button" class="btn" type="submit"
+             value="Create!" />
+    </fieldset>
+
+  </form>
+  <div ng-show="feedback.success">
+    <div class="alert alert-success">
+      <span>{{feedback.message}}</span>
+    </div>
+  </div>
+
+</div>

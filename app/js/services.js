@@ -47,6 +47,12 @@ angular.module('ruuvitracker.services', []).
                  return $resource(configuration.resourceUrl + 'trackers', {},
                                   {createTracker: {method: 'POST'}});
              }]).
+    factory('groupResource',
+            ['configuration','$resource',
+             function(configuration, $resource) {
+                 return $resource(configuration.resourceUrl + 'tracker', {},
+                                  {create: {method: 'POST'}});
+             }]).
     run(function(trackerStorage)  {
         // Execute at application startup
         trackerStorage.restoreSelectedTrackers();        

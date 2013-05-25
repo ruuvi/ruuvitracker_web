@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <h1>Login</h1>
+  <form id="login-form"
+        ng-submit="loginUser(user, password)"
+        ng-hide="feedback.success">
+    <fieldset>
+      <ol>
+        <li>
+          <label for="username">Email:</label>
+          <input id="username" size="30" maxlength="256"
+                 placeholder="Email address" type="email"
+                 required="required"
+                 ng-model="user" />
+        </li>
+        <li>
+          <label for="password">Password:</label>
+          <input id="password" size="30" maxlength="30"
+                 type="password" 
+                 placeholder="Give a password"
+                 required="required"
+                 ng-model="password" />
+        </li>
+      </ol>
+    </fieldset>
+
+    <div class="alert alert-error" ng-show="feedback.error">
+      <span>{{feedback.message}}</span>
+    </div>
+    <fieldset>
+      <input id="create-user-button" class="btn" type="submit"
+             value="Login" />
+    </fieldset>
+
+  </form>
+  <div ng-show="feedback.success">
+    <div class="alert alert-success">
+      <span>{{feedback.message}}</span>
+    </div>
+  </div>
+
+</div>

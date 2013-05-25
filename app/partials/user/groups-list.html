@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <p>
+      <a href="#/create-group">create a new group</a>.
+    </p>
+    <table id="group-list">
+      <thead>
+        <tr>
+          <th>Group</th>
+        </tr>
+      </thead>
+      <tbody >
+        <tr ng-repeat="group in groups">
+          <td>{{group.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <hr />
+  </div>
+</div>
