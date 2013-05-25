@@ -155,6 +155,22 @@ var MapService = function($log, $rootScope, configuration, storageService, track
 
     this.isTouchDevice = isTouchDevice;
 
+    /** Display paths that were created before map 
+        has been initialized */
+    var displayInitialPaths = function(map) {
+        for (var trackerId in paths) {
+            var tracker  = paths[trackerId];
+            for (var sessionId in tracker) {
+                if(sessionId == 'marker') {
+                    tracker.marker.addTo(map);
+                } else {
+                    var session = tracker[sessionId];
+                    session.path.addTo(map);
+                } 
+            }
+        }
+    }
+
     var create = function(canvasId, startingLocation) {
         $log.info("create:" + canvasId);
         var tiles = createMapTiles();
@@ -203,6 +219,7 @@ var MapService = function($log, $rootScope, configuration, storageService, track
             $log.info("location error", event);
         });
         var hour = 60 * 60;
+        displayInitialPaths(map);
         loadInitialLocation(map, startingLocation, hour);
         // listen for move and zoom events so that location can be restored
         map.on("zoomend", storeMapState);
@@ -345,11 +362,6 @@ var MapService = function($log, $rootScope, configuration, storageService, track
             tracker.marker.setIconAngle(angle);
         }
 
-        /** TODO if event is received before map is initialized, routes
-            and markers are not shown.
-            Map should read these (paths) when initializing
-        */
-
         if(mapView) {
             session.path.addTo(mapView);
             tracker.marker.addTo(mapView);
@@ -357,4 +369,4 @@ var MapService = function($log, $rootScope, configuration, storageService, track
         }
     }
 };
-MapService.$inject = ['configuration'];
+
