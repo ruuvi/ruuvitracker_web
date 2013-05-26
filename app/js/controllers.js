@@ -163,11 +163,6 @@ function CreateTrackerCtrl($log, $scope, $location, trackerResource) {
     };
     $scope.createTracker = function(trackerCode,
         sharedSecret, trackerName, demoPassword) {
-        var expected = ["#" + "ruu" + "vi", "enK".replace(/n/,"nN").toLowerCase().replace(/nn/,"n").replace(/(k)/,"$1$1i")].join("p");
-        if(demoPassword != expected) {
-            $scope.feedback = {error: true, message: "Wrong demo password"};
-            return;
-        }
         $log.log("creating ", trackerCode);
         function success(e) {
             $log.info("Successfully created new tracker", e.tracker);

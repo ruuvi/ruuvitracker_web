@@ -4,7 +4,7 @@
 angular.module('ruuvitracker', ['ngResource', 
                                 // 'ruuvitracker.filters', 
                                 'ruuvitracker.services', 
-                                // 'ruuvitracker.directives', 
+                                'ruuvitracker.directives', 
                                 'analytics']).
   config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/', {templateUrl: 'partials/front.html', controller: FrontCtrl});

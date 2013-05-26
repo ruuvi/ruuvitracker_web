@@ -46,6 +46,14 @@ body {
     z-index: 900;
 }
 
+.css-form input.ng-invalid.ng-dirty {
+    background-color: #fdd;
+}
+    
+.css-form input.ng-valid.ng-dirty {
+    background-color: #cfc;
+}
+
 #map-fullscreen-button-container {
     top: 50px;
     left: 0px;

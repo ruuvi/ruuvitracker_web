@@ -1,10 +1,21 @@
 <div class="container-fluid">
   <h1>Create user account</h1>
-  <form id="create-user-form"
+  <form id="create-user-form" name="form" class="css-form" 
+        novalidate="true"
         ng-submit="createUser(username, password, retyped_password)"
         ng-hide="feedback.success">
     <fieldset>
       <ol>
+        <li>
+          <label for="demoPassword">Demo password:</label>
+          <input id="demoPassword" size="30" 
+                 type="text"
+                 placeholder="Demo password"
+                 required="required"
+                 ng-model="demoPassword"
+                 demopassword="required" />
+        </li>
+
         <li>
           <label for="username">Email:</label>
           <input id="username" size="30" 
@@ -12,8 +23,7 @@
                  placeholder="Email address"
                  required="required"
                  autocomplete="off" 
-                 ng-model="username"
-                 />
+                 ng-model="username" />
         </li>
         <li>
           <label for="password">Password:</label>
@@ -37,6 +47,7 @@
     </div>
     <fieldset>
       <input id="create-user-button" class="btn" type="submit"
+             ng-disabled="form.$invalid"
              value="Create!" />
     </fieldset>
 

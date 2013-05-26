@@ -1,7 +1,8 @@
 <div class="container-fluid">
   <h1>Create group</h1>
-  <form id="create-user-form"
-        ng-submit="createGroup(group)"
+  <form id="create-group-form" name="form"
+        class="css-form" novalidate="true"
+        ng-submit="createGroup()"
         ng-hide="feedback.success">
     <fieldset>
       <p>
@@ -9,12 +10,26 @@
       </p>
       <ol>
         <li>
-          <label for="group">Group name:</label>
-          <input id="group" size="30" maxlength="256"
+          <label for="demoPassword">Demo password:</label>
+          <input id="demoPassword" size="30" 
                  type="text"
+                 placeholder="Demo password"
+                 required="required"
+                 ng-model="demoPassword"
+                 demopassword="required"
+                 />
+        </li>
+
+        <li>
+          <label for="group">Group name:</label>
+          <input id="group" name="group" type="text"
+                 size="30" maxlength="256"
                  placeholder="Group name"
                  required="required"
-                 autocomplete="off" ng-model="group" />
+                 autocomplete="off" ng-model="group.name" />
+          <span ng-show="!form.group.$pristine && form.group.$invalid">
+            <span class="error-msg" ng-show="form.group.$error.required">Required</span>
+          </span>
         </li>
       </ol>
     </fieldset>
@@ -24,7 +39,8 @@
     </div>
     <fieldset>
       <input id="create-user-button" class="btn" type="submit"
-             value="Create!" />
+             value="Create!"
+             ng-disabled="form.$invalid"/>
     </fieldset>
 
   </form>

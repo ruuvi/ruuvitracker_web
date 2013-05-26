@@ -36,7 +36,7 @@ function validEmail($scope, username) {
         // browser may accept 'foo@email', but it is passed as
         // undefined to here
         $scope.feedback = {error: true, 
-                               message: "Proper email address is required."};
+                               message: "Email address is required."};
         return false;
     }
     return true;
@@ -101,13 +101,13 @@ function GroupsListCtrl($log, $scope, $location, userResource) {
 }
 
 function CreateGroupCtrl($log, $scope, $location, groupResource) {
-    $scope.createGroup = function(group) {
+    $scope.createGroup = function() {
         var success = successHandler($scope, $log, 
-                                     "Creating a new group " + group, 
-                                     "Group  " + group + " has been created."); 
+                                     "Creating a new group " + group.name, 
+                                     "Group  " + group.name + " has been created."); 
         var error = errorHandler($scope, $log, 
-                                 "create group " + group, 
+                                 "create group " + group.name, 
                                  "create group. Try again later");
-        groupResource.create({group: group}, success, error);
+        groupResource.create({group: group.name}, success, error);
     }
 }
