@@ -23,7 +23,7 @@ function MapCtrl($log, $scope, $rootScope, $location, mapService, geoCodingServi
     if(mapService.isTouchDevice() ) {
         // touch devices do not have zoom controls, move 
         // fullscreen toggle to top
-        $("#map-fullscreen-container").attr("style", "top: 0;");
+        $("#map-fullscreen-button-container").attr("style", "top: 0;");
     }
     $rootScope.showFullscreen = false;
     function resizeMap() {

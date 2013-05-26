@@ -58,15 +58,20 @@ body {
     top: 50px;
     left: 0px;
     position: absolute;
-    z-index: 1000;
+    z-index: 1001;
 
     box-shadow: 0 0 8px  rgba(0,0,0,0.4);
     border: 1px solid #888;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+
+    cursor: pointer;
+    float: left;
+    clear: both;
 }
 
-a.map-fullscreen-button {
+
+#map-fullscreen-button {
     color: black;
     -webkit-border-radius: 4px;
     border-radius: 4px;
@@ -85,7 +90,7 @@ a.map-fullscreen-button:hover {
     top: 0px;
     left: 50px;
     position: absolute;
-    z-index: 1000;
+    z-index: 1001;
 
     box-shadow: 0 0 8px  rgba(0,0,0,0.4);
     border: 1px solid #888;
@@ -93,6 +98,7 @@ a.map-fullscreen-button:hover {
     border-radius: 5px;
 
     font-size: 110%;
+    cursor: pointer;
 }
 #track-button {
     -webkit-border-radius: 4px;
