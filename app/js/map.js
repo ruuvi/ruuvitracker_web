@@ -282,8 +282,7 @@ var MapService = function($log, $rootScope, configuration, storageService, track
     this.center = function(location, zoom) {
         // if map is not part of DOM, setView will fail
         // https://github.com/Leaflet/Leaflet/issues/1707
-        //if(document.getElementById("map-canvas")) {
-        if(elementInDocument(mapView.getContainer())) {
+        if(!deferredCenter && elementInDocument(mapView.getContainer())) {
             mapView.setView(location, zoom || configuration.defaultZoom);
         } else {
             // if not setting view here, should store variable and 
