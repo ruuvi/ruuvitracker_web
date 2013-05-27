@@ -52,6 +52,8 @@ var MapService = function($log, $rootScope, configuration, storageService, track
     var paths = {};
     $rootScope.sendLocationToServer = false;
 
+    var deferredCenter = null;
+
     var createMapTiles = function() {
         var tiles = [];
         for(var i = 0; i < configuration.maps.length; i ++) {
@@ -237,6 +239,10 @@ var MapService = function($log, $rootScope, configuration, storageService, track
         var newContainer = $('#' + canvasId);
         newContainer.replaceWith(oldContainer);
         mapView.invalidateSize(false);
+        if(deferredCenter) {
+            mapView.setView(deferredCenter.location, deferredCenter.zoom);
+            deferredCenter = null;
+        }
     };
 
     /* Open existing map or create new */
@@ -249,6 +255,15 @@ var MapService = function($log, $rootScope, configuration, storageService, track
         }
     };
     
+    var elementInDocument = function(element) {
+        while (element = element.parentNode) {
+            if (element == document) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /* Center location of current map view */
     this.currentCenter = function() {
         return mapView.getCenter();
@@ -265,7 +280,16 @@ var MapService = function($log, $rootScope, configuration, storageService, track
 
     /* Center map on given location */
     this.center = function(location, zoom) {
-        mapView.setView(location, zoom || configuration.defaultZoom);
+        // if map is not part of DOM, setView will fail
+        // https://github.com/Leaflet/Leaflet/issues/1707
+        //if(document.getElementById("map-canvas")) {
+        if(elementInDocument(mapView.getContainer())) {
+            mapView.setView(location, zoom || configuration.defaultZoom);
+        } else {
+            // if not setting view here, should store variable and 
+            // setView when reopening map
+            deferredCenter = {location: location, zoom: zoom};
+        }
     };
 
     /* Center map on give LatLngBounds object */
