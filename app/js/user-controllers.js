@@ -101,13 +101,13 @@ function GroupsListCtrl($log, $scope, $location, userResource) {
 }
 
 function CreateGroupCtrl($log, $scope, $location, groupResource) {
-    $scope.createGroup = function() {
+    $scope.createGroup = function(name) {
         var success = successHandler($scope, $log, 
-                                     "Creating a new group " + group.name, 
-                                     "Group  " + group.name + " has been created."); 
+                                     "Creating a new group " + name, 
+                                     "Group  " + name + " has been created."); 
         var error = errorHandler($scope, $log, 
-                                 "create group " + group.name, 
+                                 "create group " + name, 
                                  "create group. Try again later");
-        groupResource.create({group: group.name}, success, error);
+        groupResource.create({group: {name: name}}, success, error);
     }
 }
