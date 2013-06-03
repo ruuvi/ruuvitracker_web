@@ -50,7 +50,7 @@ angular.module('ruuvitracker.services', []).
     factory('groupResource',
             ['configuration','$resource',
              function(configuration, $resource) {
-                 return $resource(configuration.resourceUrl + 'tracker', {},
+                 return $resource(configuration.resourceUrl + 'groups', {},
                                   {create: {method: 'POST'}});
              }]).
     run(function(trackerStorage)  {
