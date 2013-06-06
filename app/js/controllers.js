@@ -6,7 +6,8 @@ function updateNavi($location, pageClass) {
     curr.addClass("active");
 }
 
-/* Controllers */
+
+/* Page Controllers */
 function DefaultCtrl($log, $scope, $location) {
     updateNavi($location, 'page-link-help');
 }

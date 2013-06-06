@@ -11,8 +11,7 @@ function successHandler($scope, $log, logMsg, feedbackMsg, callback) {
     return function(e) {
         $log.info(logMsg);
         $scope.feedback = {success: true, 
-                           message: feedbackMsg,
-                           tracker: e.tracker};
+                           message: feedbackMsg};
         if(callback) {
             callback();
         }
@@ -46,7 +45,7 @@ function validEmail($scope, username) {
 }
 
 function CreateUserCtrl($log, $scope, $location, userResource) {
-    updateNavi($location, 'page-users');
+    updateNavi($location, 'page-link-register');
     $scope.createUser = function(username, password, retyped_password) {
         if(!validEmail($scope, username)) {
             return;
@@ -77,12 +76,13 @@ function CreateUserCtrl($log, $scope, $location, userResource) {
     }
 }
 
-function AuthenticationCtrl($log, $scope, $location, authResource) {
-    updateNavi($location, 'page-users');
+function AuthenticationCtrl($log, $scope, $location, authResource, AuthService) {
+    updateNavi($location, 'page-link-login');
     $scope.loginUser = function(username, password) {
         if(!validEmail($scope, username)) {
             return;
         }
+
 
         var success = successHandler($scope, $log,
                                      "User " + username + " logged in",
@@ -90,20 +90,19 @@ function AuthenticationCtrl($log, $scope, $location, authResource) {
         var error = errorHandler($scope, $log, 
                                  "login " + username, 
                                  "login. Try again later.");
-
-        var result = authResource.authenticate({user: {username: username, 
-                                                       password: password}}, 
-                                               success, error);
+  
+        AuthService.login(username, password, success, error);
     }
 }
 
 function GroupsListCtrl($log, $scope, $location, userResource) {
+    updateNavi($location, 'page-link-groups');
     $scope.groups = [{id:1, name: "ryhma1"},
                      {id:2, name: "ryhma2"}];
-
 }
 
 function CreateGroupCtrl($log, $scope, $location, groupResource) {
+    updateNavi($location, 'page-link-groups');
     $scope.createGroup = function(name) {
         var success = successHandler($scope, $log, 
                                      "Creating a new group " + name, 

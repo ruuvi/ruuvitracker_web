@@ -25,7 +25,8 @@
     <link rel="help" href="#/help" />
   </head>
   <body>
-    <header id="top-navigation" class="navbar navbar-inverse">
+    <header id="top-navigation" class="navbar navbar-inverse"
+    ng-controller="MainNaviCtrl"> 
       <div class="navbar-inner">
         <nav class="container-fluid">
           <button id="navi-menu-toggle" type="button" class="btn btn-navbar" data-toggle="collapse"
@@ -39,11 +40,14 @@
             <ul class="nav">
               <li class="page-link-map"><a href="#/map">Map</a></li>
               <li class="page-link-trackers"><a href="#/trackers">Trackers</a></li>
-              <li class="page-link-groups"><a href="#/groups">Groups</a></li>
+              <li ng-cloak class="page-link-groups" ng-show="user.authenticated"><a href="#/groups">Groups</a></li>
             </ul>
-            <ul class="nav pull-right">
-                <li class="page-link-login"><a href="#/login">Login</a></li>
-                <li class="page-link-register"><a href="#/register">Register</a></li>
+            <ul class="nav pull-right" >
+                <li ng-cloak class="page-link-login"
+                ng-hide="user.authenticated"><a href="#/login">Login</a></li>
+                <li ng-cloak class="page-link-register"
+                ng-hide="user.authenticated"><a href="#/register">Register</a></li>
+                <li ng-cloak ng-show="user.authenticated"><a ng-click="logout()">Logout</a></li>
                 <li class="page-link-help"><a href="#/help">Help</a></li>
                 <li class="page-link-debug"><a href="#/debug"><small>debug</small></a></li>
             </ul>
@@ -90,12 +94,14 @@
     <script src="js/api.js?TIMESTAMP_PLACEHOLDER"></script>
     <script src="js/map.js?TIMESTAMP_PLACEHOLDER"></script>
     <script src="js/storage.js?TIMESTAMP_PLACEHOLDER"></script>
+    <script src="js/navi.js?TIMESTAMP_PLACEHOLDER"></script>
     <script src="js/sound.js?TIMESTAMP_PLACEHOLDER"></script>
     <script src="js/analyticsService.js?TIMESTAMP_PLACEHOLDER"></script>
 
     <script src="js/app.js?TIMESTAMP_PLACEHOLDER"></script>
     <script src="js/services.js?TIMESTAMP_PLACEHOLDER"></script>
     <script src="js/controllers.js?TIMESTAMP_PLACEHOLDER"></script>
+    <script src="js/auth.js?TIMESTAMP_PLACEHOLDER"></script>
     <script src="js/user-controllers.js?TIMESTAMP_PLACEHOLDER"></script>
     <script src="js/ui.js?TIMESTAMP_PLACEHOLDER"></script>
 

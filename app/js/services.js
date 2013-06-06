@@ -29,6 +29,10 @@ angular.module('ruuvitracker.services', []).
                                  function($log) {
                                      return new GeoCodingService($log);
                                  }]).
+    factory('naviService', ['$log',
+                           function($log) {
+                               return new NaviService($log);
+                           }]).
     factory('userResource', 
             ['configuration','$resource',
              function(configuration, $resource) {
@@ -39,8 +43,13 @@ angular.module('ruuvitracker.services', []).
             ['configuration','$resource',
              function(configuration, $resource) {
                  return $resource(configuration.resourceUrl + 'auths', {},
-                                  {authenticate: {method: 'POST'}});
+                                  {login: {method: 'POST'},
+                                   logout: {method: 'DELETE'}});
              }]).
+    factory('AuthService',
+            ['$log', 'authResource', function($log, authResource) {
+                return new AuthService($log, authResource);
+            }]).
     factory('trackerResource',
             ['configuration','$resource',
              function(configuration, $resource) {
