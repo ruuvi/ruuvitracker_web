@@ -26,4 +26,8 @@ angular.module('ruuvitracker', ['ngResource',
   }]).
     config(['$locationProvider', function($locationProvider) {
       // $locationProvider.html5Mode(true).hashPrefix('!');
-  }]);
+  }]).
+    config(['$httpProvider', function($httpProvider) {
+        // Send cookies with request by default
+        $httpProvider.defaults.withCredentials = true;
+    }]);

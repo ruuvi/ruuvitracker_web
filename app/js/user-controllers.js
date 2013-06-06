@@ -7,12 +7,15 @@ function updateNavi($location, pageClass) {
 }
 
 /* Controllers */
-function successHandler($scope, $log, logMsg, feedbackMsg) {
+function successHandler($scope, $log, logMsg, feedbackMsg, callback) {
     return function(e) {
         $log.info(logMsg);
         $scope.feedback = {success: true, 
                            message: feedbackMsg,
                            tracker: e.tracker};
+        if(callback) {
+            callback();
+        }
     };
 }
 
@@ -83,7 +86,7 @@ function AuthenticationCtrl($log, $scope, $location, authResource) {
 
         var success = successHandler($scope, $log,
                                      "User " + username + " logged in",
-                                     "User account " + username + " has been created."); 
+                                     "User " + username + " logged in."); 
         var error = errorHandler($scope, $log, 
                                  "login " + username, 
                                  "login. Try again later.");
