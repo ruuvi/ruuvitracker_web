@@ -16,8 +16,7 @@
                  placeholder="Demo password"
                  required="required"
                  ng-model="demoPassword"
-                 demopassword="required"
-                 />
+                 demopassword="required" />
         </li>
 
         <li>
@@ -26,7 +25,8 @@
                  size="30" maxlength="256"
                  placeholder="Group name"
                  required="required"
-                 autocomplete="off" ng-model="group.name" />
+                 autocomplete="off" ng-model="group.name"
+                 autofocus />
           <span ng-show="!form.group.$pristine && form.group.$invalid">
             <span class="error-msg" ng-show="form.group.$error.required">Required</span>
           </span>
