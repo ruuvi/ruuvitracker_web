@@ -55,7 +55,7 @@ body {
 }
 
 #map-fullscreen-button-container {
-    top: 50px;
+    top: 55px;
     left: 0px;
     position: absolute;
     z-index: 1001;
@@ -75,10 +75,11 @@ body {
     color: black;
     -webkit-border-radius: 4px;
     border-radius: 4px;
-    padding: 4px;
+    padding: 5px;
     background-position: 50% 50%;
     background-repeat: no-repeat;
     display: block;
+    background-color: white
 }
 
 a.map-fullscreen-button:hover {
