@@ -1,31 +1,50 @@
 <div id="map-page" class="container-fluid">
   <div class="row-fluid">
     <div id="map-toolbar">
-      <button id="locate-me" ng-click="locateMe()" class="btn" title="Center map on my current location">Locate</button>
+      <button ng-click="toggleFullscreen()" class="btn"
+              title="Toggle fullscreen"><i class="icon-fullscreen"></i></button>
+
+      <button id="locate-me" ng-click="locateMe()" class="btn"
+      title="Center map on my current location" >Locate</button>
       <form class="search-form" ng-submit="searchAddress(address)">
         <input type="search" id="location-search" class="search-query"
                size="20" maxlength="100" placeholder="Location search" 
                title="Enter address here and map will show the location." 
                ng-model="address"/>
       </form>
+      
+      <button class="btn {{locationSend.cssClass}}"
+         ng-click="toggleLocationSending()"
+         
+         title="{{locationSend.title}}" ng-bind="locationSend.status">
+      </button>
+
     </div>
-    <div id="map-canvas" >
-      <div class="leaflet-control-container">
+    <!-- fullscreenControls do not work when inside map-canvas in
+    google chrome -->
+    <div class="fullscreenControls">
+      <!--
+      <div class="leaflet-control-container" ng-show="showFullscreen">
         <div id="track-button-container">
-          <a id="track-button" class="leaflet-bar-part
-               {{locationSend.cssClass}}" ng-click="toggleLocationSending()"
-             title="{{locationSend.title}}">
-            {{locationSend.status}}
+          <a id="track-button" class="leaflet-bar-part {{locationSend.cssClass}}"
+             ng-click="toggleLocationSending()"
+             
+           title="{{locationSend.title}}" ng-bind="locationSend.status">
           </a>
         </div>
       </div>
-      <div class="leaflet-control-container">
+      -->
+      <div class="leaflet-control-container" ng-show="showFullscreen">
         <div id="map-fullscreen-button-container">
-          <a ng-click="toggleFullscreen()"
-             id="map-fullscreen-button" class="leaflet-bar-part"
-             title="Toggle fullscreen"><i class="icon-fullscreen"></i></a>
+        <a ng-click="toggleFullscreen()"
+           id="map-fullscreen-button" class="leaflet-bar-part"
+           title="Toggle fullscreen"><i class="icon-fullscreen"></i></a>
         </div>
       </div>
+    </div>
+
+    <div id="map-canvas" >
+      <!-- map goes here -->
     </div>
   </div>
   
