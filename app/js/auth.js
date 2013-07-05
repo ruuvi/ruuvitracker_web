@@ -2,6 +2,7 @@
 
 function AuthService($log, authResource) {
     console.log("AuthResource created");
+    // TODO check cookie first
     this.user = {authenticated: false};
     
     var userState = this.user;
