@@ -21,6 +21,15 @@ body {
     input.search-query {
         width: 120px;
     }
+
+    #navi-menu-toggle, .navbar .brand {
+        padding: 0;
+        margin: 0;
+    }
+
+    .navbar-inner {
+        min-height: 20px;
+    }
 }
 
 /** leaflet fixes */
@@ -115,16 +124,17 @@ a.map-fullscreen-button:hover {
     text-decoration: none;
 }
 
-a.tracking-active {
+.tracking-active {
     color: red;
     text-decoration:underline;
 }
 
-a.tracking-active:hover {
+.tracking-active:hover {
+    color: red;
     text-decoration:underline;
 }
 
-a.tracking-passive {
+.tracking-passive {
     color: gray;
 }
 
