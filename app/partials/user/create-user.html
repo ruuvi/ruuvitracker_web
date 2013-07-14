@@ -2,7 +2,7 @@
   <h1>Create user account</h1>
   <form id="create-user-form" name="form" class="css-form" 
         novalidate="true"
-        ng-submit="createUser(username, password, retyped_password)"
+        ng-submit="createUser(name, username, password, retyped_password)"
         ng-hide="feedback.success">
     <fieldset>
       <ol>
@@ -17,17 +17,28 @@
         </li>
 
         <li>
+          <label for="name">Name:</label>
+          <input id="name" size="30" 
+                 maxlength="256"
+                 placeholder="Name"
+                 required="required"
+                 autocomplete="off" 
+                 ng-model="name" autofocus/>
+        </li>
+
+        <li>
           <label for="username">Email:</label>
           <input id="username" size="30" 
+                 maxlength="256"
                  type="email"
                  placeholder="Email address"
                  required="required"
                  autocomplete="off" 
-                 ng-model="username" autofocus/>
+                 ng-model="username"/>
         </li>
         <li>
           <label for="password">Password:</label>
-          <input id="password" size="30" maxlength="30"
+          <input id="password" size="30" maxlength="50"
                  type="password" placeholder="Give a password"
                  required="required"
                  autocomplete="off" ng-model="password"/>

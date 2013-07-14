@@ -46,7 +46,7 @@ function validEmail($scope, username) {
 
 function CreateUserCtrl($log, $scope, $location, userResource) {
     updateNavi($location, 'page-link-register');
-    $scope.createUser = function(username, password, retyped_password) {
+    $scope.createUser = function(name, username, password, retyped_password) {
         if(!validEmail($scope, username)) {
             return;
         }
@@ -69,7 +69,8 @@ function CreateUserCtrl($log, $scope, $location, userResource) {
                                  "create user " + username, 
                                  "create user. Try again later.");
 
-        var result = userResource.create({user: {username: username, 
+        var result = userResource.create({user: {name: name,
+                                                 username: username, 
                                                  email: username, 
                                                  password: password}}, 
                                          success, error);   
