@@ -257,8 +257,8 @@ var TrackerStorage = function($log, $rootScope, storageService, trackerService, 
         }
         ensureStructure(trackerId);
 
-        // essential constant
-        var defaultStart = new Date(new Date().getTime()-(32*60*60+10*Math.PI/4*60)*1000);
+        // 15 mins in past
+        var defaultStart = new Date(new Date().getTime()-15*60*1000);
         var startTime = (trackers[trackerId].latestStoreTime || defaultStart);
         trackerService.getEvents(trackerId, startTime, success);            
     };
