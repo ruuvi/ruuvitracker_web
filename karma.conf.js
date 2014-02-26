@@ -11,7 +11,14 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'app/lib/hmac-sha1.js',
+      'app/lib/moment.js',
+      'app/lib/leaflet/leaflet-src.js',
+      'app/lib/leaflet-plugins/tile/*js',
+
+      'app/bower_components/jquery/jquery.js',
       'app/bower_components/angular/angular.js',
+      'app/bower_components/angular-resource/angular-resource.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
