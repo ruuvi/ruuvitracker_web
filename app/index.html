@@ -1,32 +1,40 @@
-<!DOCTYPE html>
-<html ng-app="ruuvitracker" id="ng-app" xmlns:ng="http://angularjs.org">
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
   <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>RuuviTracker</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <!-- build:css(.tmp) styles/main.css -->
+      <link rel="stylesheet" href="styles/main.css" />
+        <!-- endbuild -->
+
+      <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.6.1/leaflet.css" />
+      <!-- TODO apple touch icons -->
+
+      <link rel="index" href="#/index" />
+      <link rel="help" href="#/help" />
+</head>
+  <body ng-app="ruuvitracker">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css"/> 
-    <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.6.1/leaflet.css" />
-    
-    <!--[if lte IE 8]>
+    <!--[if lt IE 9]>
       <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.6.1/leaflet.ie.css" />
-      <script src="http://cdnjs.cloudflare.com/ajax/libs/json3/3.2.4/json3.min.js"/>
-      <![endif] -->
+      <script src="bower_components/es5-shim/es5-shim.js"></script>
+      <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
 
-    <link rel="stylesheet" href="css/ruuvi-ui.css?TIMESTAMP_PLACEHOLDER" />
-
-    <link rel="shortcut icon" href="img/favicon.ico?TIMESTAMP_PLACEHOLDER" />
-    <!-- TODO apple touch icons -->
-
-    <link rel="index" href="#/index" />
-    <link rel="help" href="#/help" />
-  </head>
-  <body>
+    <!-- Add your site or application content here -->
     <header id="top-navigation" class="navbar navbar-inverse"
-    ng-controller="MainNaviCtrl"> 
+    ng-controller="MainNaviCtrl">
       <div class="navbar-inner">
         <nav class="container-fluid">
           <button id="navi-menu-toggle" type="button" class="btn btn-navbar" data-toggle="collapse"
@@ -59,7 +67,7 @@
     <div id="content" ng-view>
       <div class="container-fluid">
         <div class="row-fluid">
-          <img src="img/spinner.gif" title="Loading..." alt="Loading..." />
+          <img src="images/spinner.gif" title="Loading..." alt="Loading..." />
         </div>
       </div>
     </div>
@@ -69,50 +77,62 @@
       <div>RuuviTracker: v<span app-version></span></div>
     </footer>
     -->
-    <!-- scripts -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script> 
 
-    <!--
-    <script src="lib/leaflet/leaflet-src.js"></script>
-    -->
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+
     <script src="//cdn.leafletjs.com/leaflet-0.6.1/leaflet.js"></script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js"></script>
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/1.7.2/moment.min.js"></script>
-
-    <script src="http://code.angularjs.org/1.1.5/angular.min.js"></script>
-    <script src="http://code.angularjs.org/1.1.5/angular-resource.min.js"></script>
     <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/hmac-sha1.js"></script>
     <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
 
-    <!-- ruuvitracker scripts -->
-    <script src="lib/leaflet-plugins/tile/Google.js?TIMESTAMP_PLACEHOLDER"></script>
-    <script src="lib/leaflet-plugins/tile/Bing.js?TIMESTAMP_PLACEHOLDER"></script>
-    <script src="js/configuration.js?TIMESTAMP_PLACEHOLDER"></script>
-    <script src="js/api.js?TIMESTAMP_PLACEHOLDER"></script>
-    <script src="js/map.js?TIMESTAMP_PLACEHOLDER"></script>
-    <script src="js/storage.js?TIMESTAMP_PLACEHOLDER"></script>
-    <script src="js/navi.js?TIMESTAMP_PLACEHOLDER"></script>
-    <script src="js/sound.js?TIMESTAMP_PLACEHOLDER"></script>
-    <script src="js/analyticsService.js?TIMESTAMP_PLACEHOLDER"></script>
+      <!-- build:js scripts/plugins.js -->
+      <script src="bower_components/bootstrap-sass/js/bootstrap-affix.js"></script>
+      <script src="bower_components/bootstrap-sass/js/bootstrap-alert.js"></script>
+      <script src="bower_components/bootstrap-sass/js/bootstrap-dropdown.js"></script>
+      <script src="bower_components/bootstrap-sass/js/bootstrap-tooltip.js"></script>
+      <script src="bower_components/bootstrap-sass/js/bootstrap-modal.js"></script>
+      <script src="bower_components/bootstrap-sass/js/bootstrap-transition.js"></script>
+      <script src="bower_components/bootstrap-sass/js/bootstrap-button.js"></script>
+      <script src="bower_components/bootstrap-sass/js/bootstrap-popover.js"></script>
+      <script src="bower_components/bootstrap-sass/js/bootstrap-typeahead.js"></script>
+      <script src="bower_components/bootstrap-sass/js/bootstrap-carousel.js"></script>
+      <script src="bower_components/bootstrap-sass/js/bootstrap-scrollspy.js"></script>
+      <script src="bower_components/bootstrap-sass/js/bootstrap-collapse.js"></script>
+      <script src="bower_components/bootstrap-sass/js/bootstrap-tab.js"></script>
+      <!-- endbuild -->
 
-    <script src="js/app.js?TIMESTAMP_PLACEHOLDER"></script>
-    <script src="js/services.js?TIMESTAMP_PLACEHOLDER"></script>
-    <script src="js/controllers.js?TIMESTAMP_PLACEHOLDER"></script>
-    <script src="js/auth.js?TIMESTAMP_PLACEHOLDER"></script>
-    <script src="js/user-controllers.js?TIMESTAMP_PLACEHOLDER"></script>
-    <script src="js/ui.js?TIMESTAMP_PLACEHOLDER"></script>
+      <!-- build:js scripts/modules.js -->
+      <script src="bower_components/angular-resource/angular-resource.js"></script>
+      <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+      <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+      <!-- endbuild -->
 
-    <!--
-        <script src="js/filters.js?TIMESTAMP_PLACEHOLDER"></script>
+      <script src="lib/leaflet-plugins/tile/Google.js"></script>
+      <script src="lib/leaflet-plugins/tile/Bing.js"></script>
 
-    -->
-    <script src="js/directives.js?TIMESTAMP_PLACEHOLDER"></script>
-    <div id="media">
-      <!-- placeholder for audio etc -->
-    </div>
+      <!-- build:js({.tmp,app}) scripts/scripts.js -->
+      <script src="scripts/configuration.js"></script>
+      <script src="scripts/api.js"></script>
+      <script src="scripts/map.js"></script>
+      <script src="scripts/storage.js"></script>
+      <script src="scripts/navi.js"></script>
+      <script src="scripts/sound.js"></script>
+      <script src="scripts/analyticsService.js"></script>
 
-</body> 
+      <script src="scripts/app.js"></script>
+      <script src="scripts/services.js"></script>
+      <script src="scripts/controllers.js"></script>
+      <script src="scripts/auth.js"></script>
+      <script src="scripts/user-controllers.js"></script>
+      <script src="scripts/ui.js"></script>
+      <script src="scripts/directives.js"></script>
+      <!-- endbuild -->
+
+      <div id="media">
+          <!-- placeholder for audio etc -->
+      </div>
+</body>
 </html>
