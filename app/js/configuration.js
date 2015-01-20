@@ -2,14 +2,14 @@
 
 var Configuration = function() {
     this.google = {};
-    this.google.analyticsId = 'UA-3439345-5'; 
+    this.google.analyticsId = 'UA-3439345-5';
     this.ruuvitracker = {};
 
     // for production use
     this.ruuvitracker.url = 'http://dev-server.ruuvitracker.fi/api/v1-dev/';
 
     // for testing
-    this.ruuvitracker.url = 'http://localhost:8080/api/v1-dev/';
+    //this.ruuvitracker.url = 'http://localhost:8080/api/v1-dev/';
 
     this.ruuvitracker.tracker = {};
     this.ruuvitracker.tracker.code = 'foobar';
@@ -82,7 +82,7 @@ var Configuration = function() {
          attribution: "Google Maps",
          maxZoom: 18
         },
-        
+
         {title: "Bing Aerial",
          type: "bing",
          map_type: 'Aerial',
@@ -101,7 +101,7 @@ var Configuration = function() {
          api_key: "AmubWuAsFPazPiBi8bT0BlpJNpvTJJ3bIp16jjZiEtcKEX11CMKDgtu1VKaJqxZL",
          maxZoom: 18,
         },
-        
+
         // birdseye needs centerPoint parameter
         /*
         {title: "Bing Birdseye",
