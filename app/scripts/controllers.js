@@ -6,15 +6,19 @@ function updateNavi($location, pageClass) {
   curr.addClass('active');
 }
 
+var control = angular.module('ruuvitracker.c1', []);
 
 /* Page Controllers */
 function DefaultCtrl($log, $scope, $location) {
   updateNavi($location, 'page-link-help');
 }
+control.controller('DefaultCtrl', ['$log', '$scope', '$location', DefaultCtrl]);
+
 
 function FrontCtrl($log, $scope, $location) {
   updateNavi($location, 'page-link-index');
 }
+control.controller('FrontCtrl', ['$log', '$scope', '$location', FrontCtrl]);
 
 function MapCtrl($log, $scope, $rootScope, $location, mapService, geoCodingService, soundService, trackerService) {
   updateNavi($location, 'page-link-map');
@@ -123,6 +127,8 @@ function MapCtrl($log, $scope, $rootScope, $location, mapService, geoCodingServi
     geoCodingService.searchLocation(address, showClosest);
   };
 }
+control.controller('MapCtrl', ['$log', '$scope', '$rootScope', '$location', 'mapService',
+                               'geoCodingService', 'soundService', 'trackerService', MapCtrl]);
 
 function TrackersListCtrl($log, $scope, $location, trackerStorage) {
   updateNavi($location, 'page-link-trackers');
@@ -147,6 +153,9 @@ function TrackersListCtrl($log, $scope, $location, trackerStorage) {
   };
 
 }
+control.controller('TrackersListCtrl', ['$log', '$scope', '$location', 'trackerStorage',
+                                        TrackersListCtrl]);
+
 
 function CreateTrackerCtrl($log, $scope, $location, trackerResource) {
   updateNavi($location, 'page-link-trackers');
@@ -186,9 +195,16 @@ function CreateTrackerCtrl($log, $scope, $location, trackerResource) {
     var result = trackerResource.createTracker({tracker: {name: trackerName, code: trackerCode, shared_secret: sharedSecret}}, success, error);
   };
 }
+control.controller('CreateTrackerCtrl', ['$log', '$scope', '$location', 'trackerResource',
+                                         CreateTrackerCtrl]);
+
 
 function ErrorCtrl($log, $scope) {}
+control.controller('ErrorCtrl', ['$log', '$scope',
+                                 ErrorCtrl]);
 
 function DebugCtrl($log, $scope, $location) {
   updateNavi($location, 'page-link-debug');
 }
+control.controller('DebugCtrl', ['$log', '$scope', '$location',
+                                 DebugCtrl]);

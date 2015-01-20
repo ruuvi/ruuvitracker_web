@@ -1,7 +1,7 @@
 'use strict';
 
 
-function MainNaviCtrl($log, $scope, AuthService, $location) {
+function MainNaviCtrl($log, $scope, $location, AuthService) {
   $scope.user = AuthService.user;
 
   $scope.logout = function() {
@@ -11,4 +11,5 @@ function MainNaviCtrl($log, $scope, AuthService, $location) {
 }
 
 var navi = angular.module('navi', []);
-navi.controller('MainNaviCtrl', MainNaviCtrl);
+navi.controller('MainNaviCtrl', ['$log', '$scope', '$location', 'AuthService',
+                                 MainNaviCtrl]);

@@ -43,12 +43,14 @@ var Configuration = function() {
      attribution: 'Maanmittauslaitos',
      maxZoom: 18
     },
+    /*
     {title: 'CloudMade',
      type: 'leaflet',
      url: 'http://{s}.tile.cloudmade.com/3a812d3f38514cbd8437154fc333930d/997/256/{z}/{x}/{y}.png',
      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
      maxZoom: 18
     },
+    */
     {title: 'OpenStreetMap',
      type: 'leaflet',
      url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
