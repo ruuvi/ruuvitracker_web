@@ -1,8 +1,8 @@
 This repository will include RuuviTracker's web frontend software.
 
-To see this software in action: http://dev-server.ruuvitracker.fi/ui/
+To see this software in action: http://dev-server.ruuvi.com/ui/
 
-Pure Javascript UI backed by [JSON/REST server](http://wiki.ruuvitracker.fi/wiki/UI-API). 
+Pure Javascript UI backed by JSON/REST server. 
 
 Frameworks and libraries used:
 - http://angularjs.org/
@@ -11,4 +11,4 @@ Frameworks and libraries used:
 - http://momentjs.com/
 - http://underscorejs.org/
 
-More info about RuuviTracker: http://www.ruuvitracker.fi/
+More info about RuuviTracker: http://ruuvi.com
